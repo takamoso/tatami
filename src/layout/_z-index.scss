@@ -1,0 +1,18 @@
+@function _z-index($keys...) {
+  $map: $_z-indexes;
+  $index: null;
+
+  @each $key in $keys {
+    @if _is-map($map) {
+      @if index($keys, $key) == length($keys) {
+        $index: if($_z-index-reverse, length(map-keys($map)) - index(map-keys($map), $key) + 1, index(map-keys($map), $key));
+      }
+
+      $map: map-get($map, $key);
+    } @else {
+      $index: if($_z-index-reverse, length($map) - index($map, $key) + 1, index($map, $key));
+    }
+  }
+
+  @return $index;
+}
