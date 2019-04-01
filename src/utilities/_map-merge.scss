@@ -1,0 +1,15 @@
+@function _map-merge($map...) {
+  $target: nth($map, 1);
+
+  @for $i from 2 through length($map) {
+    @each $key, $value in nth($map, $i) {
+      @if (type-of(map-get($target, $key)) == map and type-of($value) == map) {
+        $target: map-merge($target, ($key: _map-merge(map-get($target, $key), $value)));
+      } @else {
+        $target: map-merge($target, ($key: $value));
+      }
+    }
+  }
+
+  @return $target;
+}
