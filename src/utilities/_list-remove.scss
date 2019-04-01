@@ -1,0 +1,12 @@
+@function _list-remove($list, $index) {
+  $result: ();
+  $index: if($index < 0, length($list) + $index + 1, $index);
+
+  @for $i from 1 through length($list) {
+    @if $i != $index {
+      $result: append($result, nth($list, $i));
+    }
+  }
+
+  @return $result;
+}
