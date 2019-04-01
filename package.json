@@ -1,6 +1,6 @@
 {
   "name": "tatami",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A powerful Sass Framework",
   "main": "src/tatami.scss",
   "repository": {
@@ -22,11 +22,14 @@
   "license": "MIT",
   "babel": {
     "presets": [
-      ["@babel/preset-env", {
-        "targets": {
-          "node": "current"
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
         }
-      }]
+      ]
     ]
   },
   "devDependencies": {
