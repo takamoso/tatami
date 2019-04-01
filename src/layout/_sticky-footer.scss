@@ -1,0 +1,46 @@
+@mixin _sticky-footer($main: '.main', $footer: '.footer', $type: 'flex') {
+  @if $type == 'sticky' {
+    html {
+      height: 100%;
+    }
+    body {
+      min-height: 100%;
+    }
+  } @else {
+    html, body {
+      height: 100%;
+    }
+  }
+
+  @if $type == 'table' {
+    body {
+      display: table;
+      width: 100%;
+    }
+    #{$main} {
+      display: table-row;
+      height: 100%;
+    }
+  } @else if $type == 'flex' {
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    #{$main} {
+      flex: 1 0 auto;
+    }
+    #{$footer} {
+      flex-shrink: 0;
+    }
+  } @else if $type == 'grid' {
+    body {
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+  } @else if $type == 'sticky' {
+    #{$footer} {
+      position: sticky;
+      top: 100%;
+    }
+  }
+}
