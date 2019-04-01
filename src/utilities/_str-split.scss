@@ -1,0 +1,38 @@
+@function _str-split($string, $separator: null, $limit: null) {
+  @if not $separator {
+    @return $string;
+  }
+
+  $list: ();
+  $limit: if($limit and 0 < $limit and $limit <= str-length($string), $limit, str-length($string));
+
+  @if $separator == '' {
+    @for $i from 1 through $limit {
+      $list: append($list, str-slice($string, $i, $i));
+    }
+
+    @return $list;
+  }
+
+  $flag: true;
+  $count: 0;
+
+  @while $flag {
+    $index: str-index($string, $separator);
+
+    @if $index {
+      $list: append($list, str-slice($string, 1, $index - 1));
+      $string: str-slice($string, $index + str-length($separator));
+      $count: $count + 1;
+
+      @if $count == $limit {
+        $flag: false;
+      }
+    } @else {
+      $list: append($list, $string);
+      $flag: false;
+    }
+  }
+
+  @return $list;
+}
