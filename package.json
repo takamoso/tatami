@@ -1,0 +1,40 @@
+{
+  "name": "tatami",
+  "version": "0.0.1",
+  "description": "A powerful Sass Framework",
+  "main": "src/tatami.scss",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takamoso/tatami.git"
+  },
+  "bugs": {
+    "url": "https://github.com/takamoso/tatami/issues"
+  },
+  "homepage": "https://github.com/takamoso/tatami#readme",
+  "keywords": [
+    "sass",
+    "scss",
+    "framework",
+    "mixin",
+    "tatami"
+  ],
+  "author": "takamoso",
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      ["@babel/preset-env", {
+        "targets": {
+          "node": "current"
+        }
+      }]
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/register": "^7.4.0",
+    "gulp": "^4.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass-magic-importer": "^5.3.1"
+  }
+}
