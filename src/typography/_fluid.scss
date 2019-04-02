@@ -1,0 +1,44 @@
+@mixin _fluid($property, $lists...) {
+  @for $i from 1 through length($lists) - 1 {
+    $x1: nth(nth($lists, $i), 1);
+    $y1: nth(nth($lists, $i), 2);
+    $x2: nth(nth($lists, $i + 1), 1);
+    $y2: nth(nth($lists, $i + 1), 2);
+    $sx1: _strip-unit($x1);
+    $sy1: _strip-unit($y1);
+    $sx2: _strip-unit($x2);
+    $sy2: _strip-unit($y2);
+    $ux1: unit($x1);
+    $uy1: unit($y1);
+    $ux2: unit($x2);
+    $uy2: unit($y2);
+
+    @if $ux1 != $uy1 and $ux2 != $uy2 {
+      $sx1: if($ux1 != 'px', $sx1 * 16, $sx1);
+      $sy1: if($uy1 != 'px', $sy1 * 16, $sy1);
+      $sx2: if($ux2 != 'px', $sx2 * 16, $sx2);
+      $sy2: if($uy2 != 'px', $sy2 * 16, $sy2);
+    }
+
+    $a: ($sy2 - $sy1) / ($sx2 - $sx1) * 100vw;
+    $b: ($sy1 - ($sy2 - $sy1) / ($sx2 - $sx1) * $sx1);
+
+    @if $ux1 != $uy1 and $ux2 != $uy2 {
+      $b: $b / 16;
+    }
+    
+    @if $i == 1 {
+      #{$property}: $y1;
+    }
+
+    @media (min-width: $x1) {
+     #{$property}: if($b == 0, $a, calc(#{$a} + #{$b}#{$uy1}));
+    }
+
+    @if $i == length($lists) - 1 {
+      @media (min-width: $x2) {
+        #{$property}: $y2;
+      }
+    }
+  }
+}
