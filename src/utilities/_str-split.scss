@@ -34,5 +34,13 @@
     }
   }
 
-  @return $list;
+  $result: ();
+
+  @each $item in $list {
+    @if $item != '' {
+      $result: append($result, $item);
+    }
+  }
+
+  @return $result;
 }
