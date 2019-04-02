@@ -1,0 +1,10 @@
+@function _list-join($list, $separator: ',') {
+  $string: '';
+
+  @for $i from 1 through length($list) {
+    $item: nth($list, $i);
+    $string: $string + if($i == 1, '', $separator) + if(length($item) > 1, _list-join($item), $item);
+  }
+
+  @return $string;
+}
