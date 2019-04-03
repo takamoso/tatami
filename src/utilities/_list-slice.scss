@@ -1,4 +1,4 @@
-@function _list-slice($list, $start: 0, $end: length($list) + 1) {
+@function _list-slice($list, $start: 1, $end: length($list) + 1) {
   $length: length($list) + 1;
 
   @if $start < 0 {
