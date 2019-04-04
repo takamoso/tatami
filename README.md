@@ -6,15 +6,23 @@
 - [Setup](#setup)
   - [Gulp 4](#gulp-4)
 - [Documentation](#documentation)
+  - [Selector](#selector)
+    - [`_hack`](#_hack)
   - [Typography](#typography)
     - [`_fluid`](#_fluid)
   - [Layout](#layout)
+    - [`_clearfix`](#_clearfix)
     - [`_sticky-footer`](#_sticky-footer)
     - [`_z-index`](#_z-index)
   - [Utilities](#utilities)
+    - [`_is-bool`](#_is-bool)
+    - [`_is-list`](#_is-list)
     - [`_is-map`](#_is-map)
+    - [`_is-num`](#_is-num)
+    - [`_is-str`](#_is-str)
     - [`_list-join`](#_list-join)
     - [`_list-remove`](#_list-remove)
+    - [`_list-slice`](#_list-slice)
     - [`_map-get`](#_map-get)
     - [`_map-merge`](#_map-merge)
     - [`_str-replace`](#_str-replace)
@@ -70,6 +78,62 @@ $ npx gulp css
 
 ## Documentation
 
+### Selector
+
+#### `_hack`
+
+```scss
+@include _hack($target);
+```
+
+CSSハックを利用して、特定のブラウザのバージョンにCSSを適用します。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th colspan="2">Description</th>
+  </tr>
+  <tr>
+    <td valign="top" rowspan="5"><code>$target</code></td>
+    <td valign="top" rowspan="5">String</td>
+    <td valign="top" rowspan="5">-</td>
+    <td colspan="2">ブラウザのバージョン文字列</td>
+  </tr>
+  <tr>
+    <td><code>ie9</code></td>
+    <td>IE9のみ</td>
+  </tr>
+  <tr>
+    <td><code>ie10</code></td>
+    <td>IE10のみ</td>
+  </tr>
+  <tr>
+    <td><code>ie11</code></td>
+    <td>IE11のみ</td>
+  </tr>
+  <tr>
+    <td><code>edge</code></td>
+    <td>Edgeの全バージョン</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+.selector {
+  @include _hack(ie11) {
+    font-size: 2em;
+  }
+}
+
+// Output
+_:-ms-fullscreen, :root .selector {
+  font-size: 2em;
+}
+```
+
 ### Typography
 
 #### `_fluid`
@@ -97,7 +161,7 @@ $ npx gulp css
     <td><code>$lists...</code></td>
     <td>List...</td>
     <td>-</td>
-    <td>2点以上の座標を画面幅が小さい順に記述</td>
+    <td>画面幅が小さい順に記述された2点以上の座標</td>
   </tr>
 </table>
 
@@ -153,6 +217,29 @@ body {
 ```
 
 ### Layout
+
+#### `_clearfix`
+
+```scss
+@include _clearfix;
+```
+
+`float` の解除をします。
+
+**Example:**
+
+```scss
+.selector {
+  @include _clearfix;
+}
+
+// Output
+.selector::after {
+  display: block;
+  content: '';
+  clear: both;
+}
+```
 
 #### `_sticky-footer`
 
@@ -389,6 +476,52 @@ $_z-indexes: (
 
 ### Utilities
 
+#### `_is-bool`
+
+```scss
+_is-bool($var);
+```
+
+Boolean 型かどうかを判定します。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$var</code></td>
+    <td>Any</td>
+    <td>-</td>
+    <td>対象となる値</td>
+  </tr>
+</table>
+
+#### `_is-list`
+
+```scss
+_is-list($var);
+```
+
+List 型かどうかを判定します。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$var</code></td>
+    <td>Any</td>
+    <td>-</td>
+    <td>対象となる値</td>
+  </tr>
+</table>
+
 #### `_is-map`
 
 ```scss
@@ -408,19 +541,55 @@ Map 型かどうかを判定します。
     <td><code>$var</code></td>
     <td>Any</td>
     <td>-</td>
-    <td>判定したい値</td>
+    <td>対象となる値</td>
   </tr>
 </table>
 
-**Example:**
+#### `_is-num`
 
 ```scss
-@debug _is-map(a b);
-// => false
-
-@debug _is-map((a: 1, b: 2));
-// => true
+_is-num($var);
 ```
+
+Number 型かどうかを判定します。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$var</code></td>
+    <td>Any</td>
+    <td>-</td>
+    <td>対象となる値</td>
+  </tr>
+</table>
+
+#### `_is-str`
+
+```scss
+_is-str($var);
+```
+
+String 型かどうかを判定します。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$var</code></td>
+    <td>Any</td>
+    <td>-</td>
+    <td>対象となる値</td>
+  </tr>
+</table>
 
 #### `_list-join`
 
@@ -441,7 +610,7 @@ _list-join($list, $separator);
     <td><code>$list</code></td>
     <td>List</td>
     <td>-</td>
-    <td>配列</td>
+    <td>対象となる配列</td>
   </tr>
   <tr>
     <td><code>$separator</code></td>
@@ -482,7 +651,7 @@ _list-remove($list, $index);
     <td><code>$list</code></td>
     <td>List</td>
     <td>-</td>
-    <td>配列</td>
+    <td>対象となる配列</td>
   </tr>
   <tr>
     <td><code>$index</code></td>
@@ -504,6 +673,53 @@ $list: a, b, c, d;
 // => a c d
 ```
 
+#### `_list-slice`
+
+```scss
+_list-slice($list, $start, $end);
+```
+
+配列から指定された範囲を抜き出した配列を生成します。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$list</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td>対象となる配列</td>
+  </tr>
+  <tr>
+    <td><code>$start</code></td>
+    <td>Number</td>
+    <td><code>1</code></td>
+    <td>抜き出す開始番目</td>
+  </tr>
+  <tr>
+    <td><code>$end</code></td>
+    <td>Number</td>
+    <td><code>length($list)</code></td>
+    <td>抜き出す終了番目</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+$list: a, b, c, d;
+
+@debug _list-slice($list, 2, 3);
+// => b c
+
+@debug _list-slice($list, -2);
+// => c d
+```
+
 #### `_map-get`
 
 ```scss
@@ -523,7 +739,7 @@ _map-get($map, $keys...);
     <td><code>$map</code></td>
     <td>Map</td>
     <td>-</td>
-    <td>連想配列</td>
+    <td>対象となる連想配列</td>
   </tr>
   <tr>
     <td><code>$keys...</code></td>
