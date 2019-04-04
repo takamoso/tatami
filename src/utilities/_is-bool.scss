@@ -1,0 +1,3 @@
+@function _is-bool($var) {
+  @return type-of($var) == bool;
+}
