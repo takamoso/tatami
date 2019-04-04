@@ -1,0 +1,62 @@
+@mixin _hack($target) {
+  $selectors: call(get-function('_#{$target}'), &);
+  $at-rule: nth($selectors, 1);
+
+  @if _is-bool($at-rule) {
+    @if $at-rule {
+      @media #{nth($selectors, 2)} {
+        & {
+          @content;
+        }
+      }
+    } @else {
+      @supports #{nth($selectors, 2)} {
+        & {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @each $selector in $selectors {
+      @at-root #{$selector} {
+        @content;
+      }
+    }
+  }
+}
+
+//
+// IE
+//
+
+@function _ie9($selectors) {
+  @return true, '(min-width: 0\\0) and (min-resolution: .001dpcm)';
+}
+
+@function _ie10($selectors) {
+  $result: ();
+
+  @each $selector in $selectors {
+    $result: append($result, '_:-ms-lang(_), #{$selector}');
+  }
+
+  @return $result;
+}
+
+@function _ie11($selectors) {
+  $result: ();
+
+  @each $selector in $selectors {
+    $result: append($result, '_:-ms-fullscreen, :root #{$selector}');
+  }
+
+  @return $result;
+}
+
+//
+// Edge
+//
+
+@function _edge($selectors) {
+  @return false, '(-ms-ime-align: auto)';
+}
