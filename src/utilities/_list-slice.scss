@@ -1,5 +1,5 @@
-@function _list-slice($list, $start: 1, $end: length($list) + 1) {
-  $length: length($list) + 1;
+@function _list-slice($list, $start: 1, $end: length($list)) {
+  $length: length($list);
 
   @if $start < 0 {
     $start: if($length < -$start, 0, $length + $start + 1);
@@ -8,12 +8,12 @@
   $end: if($length < $end, $length, $end);
 
   @if $end < 0 {
-    $end: $length + $end;
+    $end: $length + $end + 1;
   }
 
   $result: ();
 
-  @for $i from $start to $end {
+  @for $i from $start through $end {
     $result: append($result, nth($list, $i));
   }
 
