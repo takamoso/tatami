@@ -1,4 +1,4 @@
-@function _list-join($list, $separator: ',') {
+@function _str-join($list, $separator: ',') {
   $string: '';
 
   @for $i from 1 through length($list) {
