@@ -1,0 +1,3 @@
+@function _list-includes($list, $value) {
+  @return index($list, $value) != null;
+}
