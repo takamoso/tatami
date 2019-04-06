@@ -1,0 +1,9 @@
+@function _rem($values, $base: 16px) {
+  $result: ();
+  
+  @each $value in $values {
+    $result: append($result, _strip-unit($value) / _strip-unit($base) * 1rem);
+  }
+
+  @return $result;
+}
