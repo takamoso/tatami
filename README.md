@@ -22,13 +22,13 @@
     - [`_is-num`](#_is-num)
     - [`_is-str`](#_is-str)
     - [`_list-includes`](#_list-includes)
-    - [`_list-join`](#_list-join)
     - [`_list-prepend`](#_list-prepend)
     - [`_list-remove`](#_list-remove)
     - [`_list-slice`](#_list-slice)
     - [`_map-get`](#_map-get)
     - [`_map-merge`](#_map-merge)
     - [`_rem`](#_rem)
+    - [`_str-join`](#_str-join)
     - [`_str-replace`](#_str-replace)
     - [`_str-split`](#_str-split)
     - [`_str-trim`](#_str-trim)
@@ -682,47 +682,6 @@ $list: a b c d;
 // => false
 ```
 
-#### `_list-join`
-
-```scss
-_list-join($list, $separator);
-```
-
-配列の全ての要素を連結した文字列を生成する。
-
-<table>
-  <tr>
-    <th>Parameter</th>
-    <th>Type</th>
-    <th>Default</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td><code>$list</code></td>
-    <td>List</td>
-    <td>-</td>
-    <td>対象となる配列</td>
-  </tr>
-  <tr>
-    <td><code>$separator</code></td>
-    <td>String</td>
-    <td><code>,</code></td>
-    <td>配列の各要素を区切る文字列</td>
-  </tr>
-</table>
-
-**Example:**
-
-```scss
-$list: a, b, c, d;
-
-@debug _list-join($list);
-// => a,b,c,d
-
-@debug _list-join($list, '');
-// => abcd
-```
-
 #### `_list-prepend`
 
 ```scss
@@ -988,6 +947,47 @@ body {
   font-size: 1.125rem;
   padding: 0.625rem 1.25rem;
 }
+```
+
+#### `_str-join`
+
+```scss
+_str-join($list, $separator);
+```
+
+配列の全ての要素を連結した文字列を生成する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$list</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td>対象となる配列</td>
+  </tr>
+  <tr>
+    <td><code>$separator</code></td>
+    <td>String</td>
+    <td><code>,</code></td>
+    <td>配列の各要素を区切る文字列</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+$list: a, b, c, d;
+
+@debug _str-join($list);
+// => a,b,c,d
+
+@debug _str-join($list, '');
+// => abcd
 ```
 
 #### `_str-replace`
