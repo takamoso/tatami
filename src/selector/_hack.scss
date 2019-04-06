@@ -1,5 +1,5 @@
 @mixin _hack($target) {
-  $selectors: call(get-function('_#{$target}'), &);
+  $selectors: call(get-function('__#{$target}'), &);
   $at-rule: nth($selectors, 1);
 
   @if _is-bool($at-rule) {
@@ -29,11 +29,11 @@
 // IE
 //
 
-@function _ie9($selectors) {
+@function __ie9($selectors) {
   @return true, '(min-width: 0\\0) and (min-resolution: .001dpcm)';
 }
 
-@function _ie10($selectors) {
+@function __ie10($selectors) {
   $result: ();
 
   @each $selector in $selectors {
@@ -43,7 +43,7 @@
   @return $result;
 }
 
-@function _ie11($selectors) {
+@function __ie11($selectors) {
   $result: ();
 
   @each $selector in $selectors {
@@ -57,6 +57,6 @@
 // Edge
 //
 
-@function _edge($selectors) {
+@function __edge($selectors) {
   @return false, '(-ms-ime-align: auto)';
 }
