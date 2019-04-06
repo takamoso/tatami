@@ -15,16 +15,20 @@
     - [`_sticky-footer`](#_sticky-footer)
     - [`_z-index`](#_z-index)
   - [Utilities](#utilities)
+    - [`_em`](#_em)
     - [`_is-bool`](#_is-bool)
     - [`_is-list`](#_is-list)
     - [`_is-map`](#_is-map)
     - [`_is-num`](#_is-num)
     - [`_is-str`](#_is-str)
+    - [`_list-includes`](#_list-includes)
     - [`_list-join`](#_list-join)
+    - [`_list-prepend`](#_list-prepend)
     - [`_list-remove`](#_list-remove)
     - [`_list-slice`](#_list-slice)
     - [`_map-get`](#_map-get)
     - [`_map-merge`](#_map-merge)
+    - [`_rem`](#_rem)
     - [`_str-replace`](#_str-replace)
     - [`_str-split`](#_str-split)
     - [`_str-trim`](#_str-trim)
@@ -476,6 +480,52 @@ $_z-indexes: (
 
 ### Utilities
 
+#### `_em`
+
+```scss
+_em($values, $base);
+```
+
+`px` 値を `em` へ変換します。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$values</code>
+    <td>Number|List</td>
+    <td>-</td>
+    <td>対象となる <code>px</code> 値</td>
+  </tr>
+  <tr>
+    <td><code>$base</code>
+    <td>Number</td>
+    <td><code>16px</code></td>
+    <td>基準となる <code>px</code> 値</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+body {
+  font-size: _em(18px);
+  margin: _em(10px 20px, 18px);
+  padding: _em(15px 30px, 18px)
+}
+
+// Output
+body {
+  font-size: 1.125em;
+  margin: 0.55556em 1.11111em;
+  padding: 0.83333em 1.66667em;
+}
+```
+
 #### `_is-bool`
 
 ```scss
@@ -591,6 +641,47 @@ String 型かどうかを判定します。
   </tr>
 </table>
 
+#### `_list-includes`
+
+```scss
+_list-includes($list, $value);
+```
+
+特定の値が配列に含まれているかどうかを判定する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$list</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td>対象となる配列</td>
+  </tr>
+  <tr>
+    <td><code>$value</code></td>
+    <td>Any</td>
+    <td>-</td>
+    <td>判定する値</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+$list: a b c d;
+
+@debug _list-includes($list, b);
+// => true
+
+@debug _list-includes($list, e);
+// => false
+```
+
 #### `_list-join`
 
 ```scss
@@ -630,6 +721,47 @@ $list: a, b, c, d;
 
 @debug _list-join($list, '');
 // => abcd
+```
+
+#### `_list-prepend`
+
+```scss
+_list-prepend($list, $value);
+```
+
+配列の先頭に値を追加する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$list</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td>対象となる配列</td>
+  </tr>
+  <tr>
+    <td><code>$value</code></td>
+    <td>String|Number|List</td>
+    <td>-</td>
+    <td>追加する値</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+$list: a b c d;
+
+@debug _list-prepend($list, e);
+// => e a b c d
+
+@debug _list-prepend($list, e f);
+// => e f a b c d
 ```
 
 #### `_list-remove`
@@ -812,6 +944,50 @@ $map2: (
 
 @debug _map-merge($map1, $map2);
 // => (a: 1, b: (c: 3, e: 4), d: 5)
+```
+
+#### `_rem`
+
+```scss
+_rem($values, $base);
+```
+
+`px` 値を `rem` へ変換します。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$values</code>
+    <td>Number|List</td>
+    <td>-</td>
+    <td>対象となる <code>px</code> 値</td>
+  </tr>
+  <tr>
+    <td><code>$base</code>
+    <td>Number</td>
+    <td><code>16px</code></td>
+    <td>基準となる <code>px</code> 値</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+body {
+  font-size: _rem(18px);
+  padding: _rem(10px 20px);
+}
+
+// Output
+body {
+  font-size: 1.125rem;
+  padding: 0.625rem 1.25rem;
+}
 ```
 
 #### `_str-replace`
