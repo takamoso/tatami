@@ -1,0 +1,20 @@
+@function _list-set($list, $indexes...) {
+  $result: $list,;
+
+  @if length($indexes) == 2 {
+    @return set-nth($list, nth($indexes, 1), nth($indexes, -1));
+  }
+
+  @for $i from 1 through length($indexes) - 2 {
+    $index: nth($indexes, $i);
+    $result: append($result, nth($list, $index), space);
+    $list: nth($list, $index);
+  }
+
+  @for $i from length($result) through 1 {
+    $index: nth($indexes, $i);
+    $result: set-nth($result, $i, set-nth(nth($result, $i), $index, if($i == length($result), nth($indexes, -1), nth($result, $i + 1))));
+  }
+
+  @return nth($result, 1);
+}
