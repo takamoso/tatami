@@ -1,0 +1,38 @@
+@function _selector-split($string) {
+  $combinator: ' ' '>' '+' '~';
+  $result: ();
+
+  @each $selector in selector-parse($string) {
+    $selector: ' ' + _str-trim(#{$selector}) + ' ';
+    $brackets: false;
+    $fragment: '';
+    $selectors: ();
+
+    @for $i from 2 through str-length($selector) {
+      $char: str-slice($selector, $i, $i);
+      $prev: str-slice($selector, $i - 1, $i - 1);
+      $next: str-slice($selector, $i + 1, $i + 1);
+
+      @if $char == '[' and _list-includes($combinator, $prev) or $prev == '(' {
+        $brackets: true;
+      } @else if $char == ']' and _list-includes($combinator, $next) or $next == ')' {
+        $brackets: false;
+      }
+      
+      @if _list-includes($combinator, $char) {
+        @if not $brackets {
+          $selectors: append($selectors, $fragment);
+          $fragment: '';
+        } @else {
+          $fragment: $fragment + $char;
+        }
+      } @else {
+        $fragment: $fragment + $char;
+      }
+    }
+
+    $result: append($result, $selectors);
+  }
+
+  @return $result;
+}
