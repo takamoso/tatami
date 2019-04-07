@@ -1,0 +1,7 @@
+@function _list-get($list, $indexes...) {
+  @each $index in $indexes {
+    $list: nth($list, $index);
+  }
+
+  @return $list;
+}
