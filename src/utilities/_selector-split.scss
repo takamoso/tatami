@@ -1,33 +1,42 @@
 @function _selector-split($string) {
-  $combinator: ' ' '>' '+' '~';
+  $combinators: ' ' '>' '+' '~';
   $result: ();
 
   @each $selector in selector-parse($string) {
-    $selector: ' ' + _str-trim(#{$selector}) + ' ';
+    $selector: '  ' + _str-trim(#{$selector}) + '  ';
     $brackets: false;
     $fragment: '';
     $selectors: ();
 
-    @for $i from 2 through str-length($selector) {
+    @for $i from 3 through str-length($selector) - 2 {
       $char: str-slice($selector, $i, $i);
       $prev: str-slice($selector, $i - 1, $i - 1);
       $next: str-slice($selector, $i + 1, $i + 1);
+      $before-prev: str-slice($selector, $i - 2, $i - 2);
+      $after-next: str-slice($selector, $i + 2, $i + 2);
 
-      @if $char == '[' and _list-includes($combinator, $prev) or $prev == '(' {
+      @if $char == '[' and _list-includes($combinators, $prev) or $prev == '(' {
         $brackets: true;
-      } @else if $char == ']' and _list-includes($combinator, $next) or $next == ')' {
+      } @else if $char == ']' and _list-includes($combinators, $next) or $next == ')' {
         $brackets: false;
       }
-      
-      @if _list-includes($combinator, $char) {
-        @if not $brackets {
+
+      @if _list-includes($combinators, $char) and ((_list-includes($combinators, $prev) and _list-includes($combinators, $before-prev)) or (_list-includes($combinators, $next) and _list-includes($combinators, $after-next))) {
+        $char: '';
+      }
+
+      @if _list-includes($combinators, $char) {
+        @if not $brackets and $fragment != '' {
           $selectors: append($selectors, $fragment);
+          $selectors: append($selectors, $char);
           $fragment: '';
-        } @else {
-          $fragment: $fragment + $char;
         }
       } @else {
         $fragment: $fragment + $char;
+      }
+
+      @if $i == str-length($selector) - 2 {
+        $selectors: append($selectors, $fragment);
       }
     }
 
