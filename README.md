@@ -11,6 +11,7 @@
   - [Typography](#typography)
     - [`_fluid`](#_fluid)
   - [Layout](#layout)
+    - [`_aspect-ratio`](#_aspect-ratio)
     - [`_clearfix`](#_clearfix)
     - [`_sticky-footer`](#_sticky-footer)
     - [`_z-index`](#_z-index)
@@ -21,13 +22,16 @@
     - [`_is-map`](#_is-map)
     - [`_is-num`](#_is-num)
     - [`_is-str`](#_is-str)
+    - [`_list-get`](#_list-get)
     - [`_list-includes`](#_list-includes)
     - [`_list-prepend`](#_list-prepend)
     - [`_list-remove`](#_list-remove)
+    - [`_list-set`](#_list-set)
     - [`_list-slice`](#_list-slice)
     - [`_map-get`](#_map-get)
     - [`_map-merge`](#_map-merge)
     - [`_rem`](#_rem)
+    - [`_selector-split`](#_selector-split)
     - [`_str-join`](#_str-join)
     - [`_str-replace`](#_str-replace)
     - [`_str-split`](#_str-split)
@@ -221,6 +225,104 @@ body {
 ```
 
 ### Layout
+
+#### `_aspect-ratio`
+
+```scss
+@include _aspect-ratio($width, $height, $selector, $fit);
+```
+
+アスペクト比の固定をします。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$width</code></td>
+    <td>Number</td>
+    <td>-</td>
+    <td>横幅</td>
+  </tr>
+  <tr>
+    <td><code>$height</code></td>
+    <td>Number</td>
+    <td>-</td>
+    <td>縦幅</td>
+  </tr>
+  <tr>
+    <td><code>$selector</code></td>
+    <td>String</td>
+    <td><code>null</code></td>
+    <td>アスペクト比を固定する要素のセレクタ</td>
+  </tr>
+  <tr>
+    <td><code>$fit</code></td>
+    <td>Boolean</td>
+    <td><code>false</code></td>
+    <td>要素をはみ出すときに高さを調整するかどうか</td>
+  </tr>
+</table>
+
+**Example 1:**
+
+```html
+<div class="parent">
+  <div class="child">3:2</div>
+</div>
+```
+
+```scss
+.parent {
+  @include _aspect-ratio(3, 2, '> .child');
+}
+
+// Output
+.parent {
+  position: relative;
+}
+.parent::before {
+  display: block;
+  padding-top: 66.66667%;
+  content: '';
+}
+.parent > .child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+```
+
+**Example 2:**
+
+```html
+<div class="element">3:2</div>
+```
+
+```scss
+.element {
+  @include _aspect-ratio(3, 2, $fit: true);
+}
+
+// Output
+.element::before {
+  float: left;
+  padding-top: 66.66667%;
+  content: '';
+}
+.element::after {
+  display: block;
+  content: '';
+  clear: both;
+}
+```
+
+3:2 の領域をはみ出したときでも、高さが自動調整されてフィットします。
 
 #### `_clearfix`
 
@@ -641,6 +743,45 @@ String 型かどうかを判定します。
   </tr>
 </table>
 
+#### `_list-get`
+
+```scss
+_list-get($list, $indexes...);
+```
+
+配列の値を取得する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$list</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td>対象となる配列</td>
+  </tr>
+  <tr>
+    <td><code>$indexes...</code></td>
+    <td>Number|List</td>
+    <td>-</td>
+    <td>番目の値</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+@debug _list-get(a b c d, 3);
+// => c
+
+@debug _list-get(a (b c) d, 2, 1);
+// => b
+```
+
 #### `_list-includes`
 
 ```scss
@@ -762,6 +903,45 @@ $list: a, b, c, d;
 
 @debug _list-remove($list, -3);
 // => a c d
+```
+
+#### `_list-set`
+
+```scss
+_list-set($list, $indexes...);
+```
+
+配列に値を代入する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$list</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td>対象となる配列</td>
+  </tr>
+  <tr>
+    <td><code>$indexes...</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td>番目の値（配列の最後の値は代入する値）</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+@debug _list-set(a b c d, 3, e);
+// => a b e d
+
+@debug _list-set(a (b c) d, 2, 1, e);
+// => a (e c) d
 ```
 
 #### `_list-slice`
@@ -947,6 +1127,37 @@ body {
   font-size: 1.125rem;
   padding: 0.625rem 1.25rem;
 }
+```
+
+#### `_selector-split`
+
+```scss
+_selector-split($string);
+```
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>$string</code>
+    <td>String</td>
+    <td>-</td>
+    <td>対象となる文字列</td>
+  </tr>
+</table>
+
+**Example:**
+
+```scss
+@debug _selector-split('.a .b > .c, .d + .e');
+// => ((".a", " ", ".b", ">", ".c"), (".d", "+", ".e"))
+
+@debug _selector-split('a:not([target="_blank"]) > span');
+// => (('a:not([target="_blank"])', ">", "span"))
 ```
 
 #### `_str-join`
