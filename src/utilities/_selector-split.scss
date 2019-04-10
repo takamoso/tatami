@@ -43,5 +43,5 @@
     $result: append($result, $selectors);
   }
 
-  @return $result;
+  @return $result,;
 }
