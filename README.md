@@ -574,7 +574,7 @@ $_z-indexes: (
   z-index: 2;
 }
 .main .right {
-  z-index: 1;
+  z-index: 3;
 }
 ```
 
