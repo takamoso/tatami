@@ -2,7 +2,7 @@
   $string: '';
 
   @for $i from 1 through length($list) {
-    $item: nth($list, $i);
+    $item: #{nth($list, $i)};
     $string: $string + if($i == 1, '', $separator) + if(length($item) > 1, _list-join($item), $item);
   }
 
