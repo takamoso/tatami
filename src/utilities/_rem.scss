@@ -5,5 +5,5 @@
     $result: append($result, _strip-unit($value) / _strip-unit($base) * 1rem);
   }
 
-  @return $result;
+  @return if(length($values) == 1, nth($result, 1), $result);
 }
