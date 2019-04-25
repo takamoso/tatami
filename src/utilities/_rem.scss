@@ -1,4 +1,8 @@
 @function _rem($values, $base: 16px) {
+  @if length($values) == 1 and unit($values) == rem {
+    @return $values;
+  }
+
   $result: ();
   
   @each $value in $values {
