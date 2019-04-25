@@ -1,0 +1,3 @@
+@function _str-includes($string, $value) {
+  @return str-index($string, $value) != null;
+}
