@@ -1,4 +1,8 @@
 @function _em($values, $base: 16px) {
+  @if length($values) == 1 and unit($values) == em {
+    @return $values;
+  }
+
   $result: ();
   
   @each $value in $values {
