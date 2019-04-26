@@ -1,4 +1,37 @@
 //
+// Selector
+//
+
+$_media-mobile-first: true !default;
+$_media-breakpoints: () !default;
+$__media-threshold: .0011em !default;
+$__media-types: (
+  all,
+  screen,
+  print,
+  speech,
+  tty,
+  tv,
+  projection,
+  handheld,
+  braille,
+  embossed,
+  aural,
+) !default;
+$__media-min-max-features: (
+  width,
+  height,
+  aspect-ratio,
+  resolution,
+  color,
+  color-index,
+  monochrome,
+  device-width,
+  device-height,
+  device-aspect-ratio,
+) !default;
+
+//
 // Layout
 //
 

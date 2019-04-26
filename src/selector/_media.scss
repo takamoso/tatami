@@ -1,0 +1,175 @@
+@mixin _media($queries...) {
+  @if $_media-mobile-first {
+    @include _media-up($queries...) {
+      @content;
+    }
+  } @else {
+    @include _media-down($queries...) {
+      @content;
+    }
+  }
+}
+
+@mixin _media-than($queries...) {
+  @if $_media-mobile-first {
+    @include _media-down-than($queries...) {
+      @content;
+    }
+  } @else {
+    @include _media-up-than($queries...) {
+      @content;
+    }
+  }
+}
+
+@mixin _media-up($queries...) {
+  @media #{__media-parse(up, $queries...)} {
+    @content;
+  };
+}
+
+@mixin _media-down($queries...) {
+  @media #{__media-parse(down, $queries...)} {
+    @content;
+  };
+}
+
+@mixin _media-up-than($queries...) {
+  @media #{__media-parse(up-than, $queries...)} {
+    @content;
+  };
+}
+
+@mixin _media-down-than($queries...) {
+  @media #{__media-parse(down-than, $queries...)} {
+    @content;
+  };
+}
+
+@function __media-parse($method, $queries...) {
+  @each $query in $queries, {
+    @each $value in $query {
+      $index: index($query, $value);
+      
+      @if length($value) == 1 and _is-str($value) and map-has-key($_media-breakpoints, $value) {
+        $val: _map-get($_media-breakpoints, $value);
+
+        @if $method == up {
+          $value: (min-width: _em($val)),;
+        } @else if $method == down {
+          $value: (max-width: _em($val)),;
+        } @else if $method == up-than {
+          $value: (min-width: _em($val) + $__media-threshold),;
+        } @else if $method == down-than {
+          $value: (max-width: _em($val) - $__media-threshold),;
+        }
+      } @else if length($value) == 2 and _is-str(_list-get($value, 1)) and map-has-key($_media-breakpoints, _list-get($value, 1)) and _is-str(_list-get($value, 2)) and map-has-key($_media-breakpoints, _list-get($value, 2)) {
+        $min: _map-get($_media-breakpoints, _list-get($value, 1));
+        $max: _map-get($_media-breakpoints, _list-get($value, 2));
+
+        @if $method == up or $method == down {
+          $value: (min-width: _em($min)) (max-width: _em($max));
+        } @else if $method == up-than {
+          $value: (min-width: _em($min) + $__media-threshold) (max-width: _em($max));
+        } @else if $method == down-than {
+          $value: (min-width: _em($min)) (max-width: _em($max) - $__media-threshold);
+        }
+      } @else if length($value) == 1 and _is-num($value) {
+        @if $method == up {
+          $value: (min-width: _em($value)),;
+        } @else if $method == down {
+          $value: (max-width: _em($value)),;
+        } @else if $method == up-than {
+          $value: (min-width: _em($value) + $__media-threshold),;
+        } @else if $method == down-than {
+          $value: (max-width: _em($value) - $__media-threshold),;
+        }
+      } @else if length($value) == 2 and _is-num(_list-get($value, 1)) and _is-num(_list-get($value, 2)) {
+        $min: _list-get($value, 1);
+        $max: _list-get($value, 2);
+
+        @if $method == up or $method == down {
+          $value: (min-width: _em($min)) (max-width: _em($max));
+        } @else if $method == up-than {
+          $value: (min-width: _em($min) + $__media-threshold) (max-width: _em($max));
+        } @else if $method == down-than {
+          $value: (min-width: _em($min)) (max-width: _em($max) - $__media-threshold);
+        }
+      } @else if length($value) == 2 and _is-str(_list-get($value, 1)) and _list-includes($__media-types, _list-get($value, 1)) and _is-num(_list-get($value, 2)) {
+        $type: _list-get($value, 1);
+        $minmax: _list-get($value, 2);
+        
+        @if $method == up {
+          $value: $type (min-width: _em($minmax));
+        } @else if $method == down {
+          $value: $type (max-width: _em($minmax));
+        } @else if $method == up-than {
+          $value: $type (min-width: _em($minmax) + $__media-threshold);
+        } @else if $method == down-than {
+          $value: $type (max-width: _em($minmax) - $__media-threshold);
+        }
+      } @else if length($value) == 3 and _is-str(_list-get($value, 1)) and _list-includes($__media-types, _list-get($value, 1)) and _is-num(_list-get($value, 2)) and _is-num(_list-get($value, 3)) {
+        $type: _list-get($value, 1);
+        $min: _list-get($value, 2);
+        $max: _list-get($value, 3);
+
+        @if $method == up or $method == down {
+          $value: $type (min-width: _em($min)) (max-width: _em($max));
+        } @else if $method == up-than {
+          $value: $type (min-width: _em($min) + $__media-threshold) (max-width: _em($max));
+        } @else if $method == down-than {
+          $value: $type (min-width: _em($min)) (max-width: _em($max) - $__media-threshold);
+        }
+      } @else {
+        $value: $value,;
+
+        @each $feature in $value {
+          @if _is-str($feature) and not _list-includes($__media-types, $feature) {
+            $value: '(#{$feature})',;
+          } @else if _is-map($feature) and unit(_list-get($feature, 1, 2)) == px {
+            $key: _list-get($feature, 1, 1);
+            $val: _list-get($feature, 1, 2);
+            $i: index($value, $feature);
+
+            @if _str-includes($key, min-) and $method == up-than {
+              $value: ($key: _em($val) + $__media-threshold),;
+            } @else if _str-includes($key, max-) and $method == down-than {
+              $value: ($key: _em($val) - $__media-threshold),;
+            } @else {
+              $value: ($key: _em($val)),;
+            }
+          } @else if _is-list($feature) and _list-includes($__media-min-max-features, _list-get($feature, 1)) {
+            $key: _list-get($feature, 1);
+            $min: _list-get($feature, 2);
+            
+            @if length($feature) == 2 {
+              @if $method == up {
+                $value: (min-#{$key}: if(unit($min) == px, _em($min), $min)),;
+              } @else if $method == down {
+                $value: (max-#{$key}: if(unit($min) == px, _em($min), $min)),;
+              } @else if $method == up-than {
+                $value: (min-#{$key}: if(unit($min) == px, _em($min) + $__media-threshold, if(unit($min) == em, $min + $__media-threshold, $min))),;
+              } @else if $method == down-than {
+                $value: (max-#{$key}: if(unit($min) == px, _em($min) - $__media-threshold, if(unit($min) == em, $min - $__media-threshold, $min))),;
+              }
+            } @else if length($feature) == 3 {
+              $max: _list-get($feature, 3);
+
+              @if $method == up or $method == down {
+                $value: (min-#{$key}: if(unit($min) == px, _em($min), $min)) (max-#{$key}: if(unit($max) == px, _em($max), $max));
+              } @else if $method == up-than {
+                $value: (min-#{$key}: if(unit($min) == px, _em($min) + $__media-threshold, if(unit($min) == em, $min + $__media-threshold, $min))) (max-#{$key}: if(unit($max) == px, _em($max), $max));
+              } @else if $method == down-than {
+                $value: (min-#{$key}: if(unit($min) == px, _em($min), $min)) (max-#{$key}: if(unit($max) == px, _em($max) - $__media-threshold, if(unit($max) == em, $max - $__media-threshold, $max)));
+              }
+            }
+          }
+        }
+      }
+
+      $queries: _list-set($queries, $index, _str-join($value, ' and '));
+    }
+  }
+
+  @return _str-join($queries, ', ');
+}
