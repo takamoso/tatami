@@ -1,5 +1,5 @@
 @function _rem($values, $base: 16px) {
-  @if length($values) == 1 and unit($values) == rem {
+  @if length($values) == 1 and not unit($values) != px {
     @return $values;
   }
 
