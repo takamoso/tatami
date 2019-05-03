@@ -1,5 +1,5 @@
 @function _em($values, $base: 16px) {
-  @if length($values) == 1 and unit($values) == em {
+  @if length($values) == 1 and unit($values) != px {
     @return $values;
   }
 
