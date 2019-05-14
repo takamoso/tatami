@@ -1,4 +1,4 @@
-@mixin _truncate($line: 1) {
+@mixin _truncate($line: 1, $line-height: null) {
   @if $line == 1 {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -6,6 +6,11 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $line;
+  }
+
+  @if $line-height {
+    max-height: $line-height * $line * 1em;
+    line-height: $line-height;
   }
 
   overflow: hidden;
