@@ -1,0 +1,12 @@
+@mixin _truncate($line: 1) {
+  @if $line == 1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+  }
+
+  overflow: hidden;
+}
