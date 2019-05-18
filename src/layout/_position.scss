@@ -1,0 +1,44 @@
+@mixin _position($type, $positions...) {
+  position: $type;
+
+  $keywords: keywords($positions);
+
+  @if length($keywords) == 0 {
+    $length: length($positions);
+
+    @if $length == 1 {
+      $all: _list-get($positions, 1);
+
+      top: $all;
+      left: $all;
+      right: $all;
+      bottom: $all;
+    } @else if $length == 2 {
+      $vertical: _list-get($positions, 1);
+      $horizontal: _list-get($positions, 2);
+
+      top: $vertical;
+      left: $horizontal;
+      right: $horizontal;
+      bottom: $vertical;
+    } @else if $length == 3 {
+      $top: _list-get($positions, 1);
+      $horizontal: _list-get($positions, 2);
+      $bottom: _list-get($positions, 3);
+
+      top: $top;
+      left: $horizontal;
+      right: $horizontal;
+      bottom: $bottom;
+    } @else if $length == 4 {
+      top: _list-get($positions, 1);
+      left: _list-get($positions, 4);
+      right: _list-get($positions, 2);
+      bottom: _list-get($positions, 3);
+    }
+  } @else {
+    @each $property, $value in $keywords {
+      #{$property}: $value;
+    }
+  }
+}
