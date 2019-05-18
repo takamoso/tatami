@@ -1,0 +1,38 @@
+@mixin _font-face($name, $path, $weight: null, $style: null, $types: eot woff woff2, $display: null, $unicodes: null) {
+  $src: ();
+  $exts: (
+    eot: '?',
+    svg: '#' + _str-replace($name, ' ', '_'),
+  );
+  $formats: (
+    eot: 'embedded-opentype',
+    otf: 'opentype',
+    ttf: 'truetype',
+  );
+
+  @each $type in $types {
+    $ext: if(map-has-key($exts, $type), $type + _map-get($exts, $type), $type);
+    $format: if(map-has-key($formats, $type), map-get($formats, $type), $type);
+    $src: append($src, url('#{$path}.#{$ext}') format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: $name;
+    font-style: $style;
+    font-weight: $weight;
+
+    @if _list-includes($types, eot) {
+      src: url('#{$path}.eot');
+    }
+
+    src: $src;
+    font-display: $display;
+
+    $unicode-range: ();
+    @each $unicode in $unicodes {
+      $unicode-range: append($unicode-range, $unicode, comma);
+    }
+    
+    unicode-range: $unicode-range;
+  }
+}
