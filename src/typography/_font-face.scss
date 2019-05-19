@@ -17,7 +17,7 @@
   }
 
   @font-face {
-    font-family: $name;
+    font-family: quote($name);
     font-style: $style;
     font-weight: $weight;
 
@@ -28,11 +28,14 @@
     src: $src;
     font-display: $display;
 
-    $unicode-range: ();
-    @each $unicode in $unicodes {
-      $unicode-range: append($unicode-range, $unicode, comma);
+    @if $unicodes {
+      $unicode-range: ();
+      
+      @each $unicode in $unicodes {
+        $unicode-range: append($unicode-range, $unicode, comma);
+      }
+      
+      unicode-range: $unicode-range;
     }
-    
-    unicode-range: $unicode-range;
   }
 }
