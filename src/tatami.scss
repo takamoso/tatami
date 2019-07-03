@@ -49,7 +49,6 @@
 // Typography
 //
 
-@import 'typography/fluid';
 @import 'typography/font-face';
 @import 'typography/truncate';
 @import 'typography/justify';
@@ -58,6 +57,7 @@
 // Layout
 //
 
+@import 'layout/fluid';
 @import 'layout/position';
 @import 'layout/z-index';
 @import 'layout/aspect-ratio';
