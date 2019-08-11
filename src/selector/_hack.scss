@@ -47,7 +47,7 @@
   $result: ();
 
   @each $selector in $selectors {
-    $result: append($result, '_:-ms-fullscreen, _:root, #{$selector}');
+    $result: append($result, '_:-ms-fullscreen, :root #{$selector}');
   }
 
   @return $result;
