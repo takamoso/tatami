@@ -8,14 +8,22 @@
 - [Documentation](#documentation)
   - [Selector](#selector)
     - [`_hack`](#_hack)
+    - [`_media`](#_media)
+      - [Basic usage](#basic-usage)
+      - [Media type](#media-type)
+      - [Advanced usage](#advanced-usage)
   - [Typography](#typography)
-    - [`_fluid`](#_fluid)
+    - [`_font-face`](#_font-face)
+    - [`_justify`](#_justify)
+    - [`_truncate`](#_truncate)
   - [Layout](#layout)
     - [`_aspect-ratio`](#_aspect-ratio)
     - [`_clearfix`](#_clearfix)
+    - [`_fluid`](#_fluid)
+    - [`_position`](#_position)
     - [`_sticky-footer`](#_sticky-footer)
     - [`_z-index`](#_z-index)
-  - [Utilities](#utilities)
+  - [Utility](#utility)
     - [`_em`](#_em)
     - [`_is-bool`](#_is-bool)
     - [`_is-list`](#_is-list)
@@ -26,12 +34,14 @@
     - [`_list-includes`](#_list-includes)
     - [`_list-prepend`](#_list-prepend)
     - [`_list-remove`](#_list-remove)
+    - [`_list-replace`](#_list-replace)
     - [`_list-set`](#_list-set)
     - [`_list-slice`](#_list-slice)
     - [`_map-get`](#_map-get)
     - [`_map-merge`](#_map-merge)
     - [`_rem`](#_rem)
     - [`_selector-split`](#_selector-split)
+    - [`_str-includes`](#_str-includes)
     - [`_str-join`](#_str-join)
     - [`_str-replace`](#_str-replace)
     - [`_str-split`](#_str-split)
@@ -62,7 +72,7 @@ const sass = require('gulp-sass')
 const magic = require('node-sass-magic-importer')
 
 gulp.task('css', () => {
-  return gulp.src('path/to/file.scss')
+  return gulp.src('path/to/style.scss')
     .pipe(sass({
       importer: [
         magic()
@@ -72,10 +82,12 @@ gulp.task('css', () => {
 })
 ```
 
-**path/to/file.scss**
+**path/to/style.scss**
 
 ```scss
 @import '~@takamoso/tatami';
+
+// Your code here!
 ```
 
 Run and compile scss:
@@ -90,11 +102,7 @@ $ npx gulp css
 
 #### `_hack`
 
-```scss
-@include _hack($target);
-```
-
-CSSハックを利用して、特定のブラウザのバージョンにCSSを適用します。
+CSSハックを利用して、特定のブラウザのバージョンにCSSを適用する。
 
 <table>
   <tr>
@@ -102,6 +110,13 @@ CSSハックを利用して、特定のブラウザのバージョンにCSSを�
     <th>Type</th>
     <th>Default</th>
     <th colspan="2">Description</th>
+  </tr>
+  <tr>
+    <td colspan="5">
+      <pre lang="scss"><code>
+@include _hack($target);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td valign="top" rowspan="5"><code>$target</code></td>
@@ -123,34 +138,234 @@ CSSハックを利用して、特定のブラウザのバージョンにCSSを�
   </tr>
   <tr>
     <td><code>edge</code></td>
-    <td>Edgeの全バージョン</td>
+    <td>Edgeのすべてのバージョン</td>
   </tr>
 </table>
 
 **Example:**
 
 ```scss
+// SCSS
 .selector {
   @include _hack(ie11) {
     font-size: 2em;
   }
 }
-
-// Output
+```
+```css
+/* CSS */
 _:-ms-fullscreen, :root .selector {
   font-size: 2em;
 }
 ```
 
-### Typography
+#### `_media`
 
-#### `_fluid`
+メディアクエリを扱いやすくする。
+
+##### Basic usage
+
+引数に `px` または `em` 値の配列を指定すると、よく使うメディアクエリを作成できる。
+
+**Example 1:**
 
 ```scss
-@include _fluid($property, $lists...);
+// SCSS
+.element {
+  @include _media-up(768px) { ... }
+  @include _media-up(768px 1024px) { ... }
+}
+```
+```css
+/* CSS */
+@media (min-width: 48em) {
+  .element { ... }  /* 768px以上 */
+}
+@media (min-width: 48em) and (max-width: 64em) {
+  .element { ... }  /* 768px以上1024px以下 */
+}
 ```
 
-1次関数を利用して、画面幅に応じてプロパティの値が流動的に変化します。
+`_media-up()` 関数はモバイルファースト記法で作成する。
+
+**Example 2:**
+
+```scss
+// SCSS
+.element {
+  @include _media-down(768px) { ... }
+  @include _media-down(768px 1024px) { ... }
+}
+```
+```css
+/* CSS */
+@media (max-width: 48em) {
+  .element { ... }  /* 768px以下 */
+}
+@media (min-width: 48em) and (max-width: 64em) {
+  .element { ... }  /* 768px以上1024px以下 */
+}
+```
+
+`_media-down()` 関数はデスクトップファースト記法で作成する。
+
+**Example 3:**
+
+```scss
+// SCSS
+.element {
+  @include _media-up-than(768px) { ... }
+  @include _media-up-than(768px 1024px) { ... }
+}
+```
+```css
+/* CSS */
+@media (min-width: 48.0011em) {
+  .element { ... }  /* 768pxより大きい */
+}
+@media (min-width: 48.0011em) and (max-width: 64em) {
+  .element { ... }  /* 768pxより大きく1024px以下 */
+}
+```
+
+`_media-up-than()` 関数は「より大きい」をモバイルファースト記法で作成する。
+
+**Example 4:**
+
+```scss
+// SCSS
+.element {
+  @include _media-down-than(768px) { ... }
+  @include _media-down-than(768px 1024px) { ... }
+}
+```
+```css
+/* CSS */
+@media (max-width: 47.9989em) {
+  .element { ... }  /* 768px未満 */
+}
+@media (min-width: 48em) and (max-width: 63.9989em) {
+  .element { ... }  /* 768px以上1024px未満 */
+}
+```
+
+`_media-down-than()` 関数は「より小さい」をデスクトップファースト記法で作成する。
+
+**Example 5:**
+
+```scss
+// SCSS
+.element {
+  @include _media(768px) { ... }
+  @include _media(768px 1024px) { ... }
+  @include _media-than(768px) { ... }
+  @include _media-than(768px 1024px) { ... }
+}
+```
+```css
+/* CSS */
+@media (min-width: 48em) {
+  .element { ... }  /* 768px以上 */
+}
+@media (min-width: 48em) and (max-width: 64em) {
+  .element { ... }  /* 768px以上1024px以下 */
+}
+@media (max-width: 47.9989em) {
+  .element { ... }  /* 768px未満 */
+}
+@media (min-width: 48em) and (max-width: 63.9989em) {
+  .element { ... }  /* 768px以上1024px未満 */
+}
+```
+
+また、短縮記法として `_media()` と `_media-than()` 関数がある。変数 `$_media-mobile-first` の値が `true` （初期値）のとき、`_media()` 関数は内部で `_media-up()` 関数が呼び出され、`_media-than()` 関数では内部で `_media-down-than()` 関数が呼び出されるようになっている。変数 `$_media-mobile-first` の値が `false` のときはそれぞれ `_media-down()` と `_media-up-than()` 関数が呼び出される。
+
+##### Media type
+
+第1引数にメディアタイプ、第2引数に `px` または `em` 値の配列を指定できる。
+
+**Example 6:**
+
+```scss
+// SCSS
+.element {
+  @include _media(screen 768px) { ... }
+  @include _media('not screen' 768px 1024px) { ... }
+}
+```
+```css
+/* CSS */
+@media screen and (min-width: 48em) {
+  .element { ... }
+}
+@media not screen and (min-width: 48em) and (max-width: 64em) {
+  .element { ... }
+}
+```
+
+`not` 演算子を使う場合は `not screen` のように記述すると配列として解釈されてしまうため、`'not screen'` というように引用符で囲む。
+
+##### Advanced usage
+
+スペース区切りでメディアタイプやメディア特性を指定できる。
+
+**Example 7:**
+
+```scss
+// SCSS
+.element {
+  @include _media(screen (resolution) (min-width: 768px)) { ... }
+  @include _media((min-width: 768px), print (max-height: 100px)) { ... }
+}
+```
+```css
+/* CSS */
+@media screen and (resolution) and (min-width: 48em) {
+  .element { ... }
+}
+@media (min-width: 48em), print and (max-height: 6.25em) {
+  .element { ... }
+}
+```
+
+カンマ区切りで指定することで、「または」の条件を作成できる。
+
+**Example 8:**
+
+```scss
+// SCSS
+
+$_media-breakpoints: (
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
+
+@import '~@takamoso/tatami';
+
+.element {
+  @include _media(xs) { ... }
+  @include _media-than(xs sm) { ... }
+}
+```
+```css
+/* CSS */
+@media (min-width: 36em) {
+  .element { ... }
+}
+@media (min-width: 36em) and (max-width: 47.9989em) {
+  .element { ... }
+}
+```
+
+変数 `$_media-breakpoints` であらかじめメディアクエリをキーで定義できる。
+
+### Typography
+
+#### `_font-face`
+
+`@font-face` の指定を容易にする。
 
 <table>
   <tr>
@@ -160,79 +375,102 @@ _:-ms-fullscreen, :root .selector {
     <th>Description</th>
   </tr>
   <tr>
-    <td><code>$property</code></td>
-    <td>String</td>
-    <td>-</td>
-    <td>CSSのプロパティ名</td>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _font-face($name, $path[, $weight, $style, $types, $display, $unicodes]);
+</code></pre>
+    </td>
   </tr>
   <tr>
-    <td><code>$lists...</code></td>
-    <td>List...</td>
+    <td><code>$name</code></td>
+    <td>String</td>
     <td>-</td>
-    <td>画面幅が小さい順に記述された2点以上の座標</td>
+    <td>フォント名</td>
+  </tr>
+  <tr>
+    <td><code>$path</code></td>
+    <td>String</td>
+    <td>-</td>
+    <td>拡張子を除いたフォントまでのパス</td>
+  </tr>
+  <tr>
+    <td><code>$weight</code></td>
+    <td>Number</td>
+    <td><code>null</code></td>
+    <td>フォントの太さ</td>
+  </tr>
+  <tr>
+    <td><code>$style</code></td>
+    <td>Number</td>
+    <td><code>null</code></td>
+    <td>フォントのスタイル</td>
+  </tr>
+  <tr>
+    <td><code>$types</code></td>
+    <td>List</td>
+    <td><code>eot woff woff2</code></td>
+    <td>フォントの拡張子</td>
+  </tr>
+  <tr>
+    <td><code>$display</code></td>
+    <td>String</td>
+    <td><code>null</code></td>
+    <td><code>font-display</code> の値</td>
+  </tr>
+  <tr>
+    <td><code>$unicodes</code></td>
+    <td>List</td>
+    <td><code>null</code></td>
+    <td><code>unicode-range</code> の値</td>
   </tr>
 </table>
 
 **Example 1:**
 
 ```scss
-body {
-  @include _fluid(font-size, 320px 14px, 1024px 16px);
-}
-
-// Output
-body {
-  font-size: 14px;
-}
-@media (min-width: 320px) {
-  body {
-    font-size: calc(0.28409vw + 13.09091px);
-  }
-}
-@media (min-width: 1024px) {
-  body {
-    font-size: 16px;
-  }
+// SCSS
+@include _font-face(NotoSansJP, '../NotoSansCJKjp-Regular', 400, normal);
+```
+```css
+/* CSS */
+@font-face {
+  font-family: "NotoSansJP";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../NotoSansCJKjp-Regular.eot");
+  src: url("../NotoSansCJKjp-Regular.eot?") format("embedded-opentype"),
+       url("../NotoSansCJKjp-Regular.woff") format("woff"),
+       url("../NotoSansCJKjp-Regular.woff2") format("woff2");
 }
 ```
+
+`$types` 引数の順序は出力の順番となる。
 
 **Example 2:**
 
 ```scss
-body {
-  @include _fluid(font-size, 320px 14px, 768px 15px, 1024px 16px);
-}
-
-// Output
-body {
-  font-size: 14px;
-}
-@media (min-width: 320px) {
-  body {
-    font-size: calc(0.22321vw + 13.28571px);
-  }
-}
-@media (min-width: 768px) {
-  body {
-    font-size: calc(0.39062vw + 12px);
-  }
-}
-@media (min-width: 1024px) {
-  body {
-    font-size: 16px;
-  }
+// SCSS
+@include _font-face(NotoSansJP, '../NotoSansCJKjp-Regular', 400, normal, $display: swap);
+```
+```css
+/* CSS */
+@font-face {
+  font-family: "NotoSansJP";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../NotoSansCJKjp-Regular.eot");
+  src: url("../NotoSansCJKjp-Regular.eot?") format("embedded-opentype"),
+       url("../NotoSansCJKjp-Regular.woff") format("woff"),
+       url("../NotoSansCJKjp-Regular.woff2") format("woff2");
+  font-display: swap;
 }
 ```
 
-### Layout
+`font-display` の値だけ変更したい場合は、`$display: swap` のように指定する。
 
-#### `_aspect-ratio`
+#### `_justify`
 
-```scss
-@include _aspect-ratio($width, $height, $selector, $fit);
-```
-
-アスペクト比の固定をします。
+文字を両端揃えにする。
 
 <table>
   <tr>
@@ -240,6 +478,133 @@ body {
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _justify;
+</code></pre>
+    </td>
+  </tr>
+</table>
+
+**Example:**
+
+```html
+<div class="element">...</div>
+```
+```scss
+// SCSS
+.element {
+  @include _justify;
+}
+```
+```css
+/* CSS */
+.element {
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+```
+
+#### `_truncate`
+
+文字が横幅に収まりきらなくなった場合に省略記号を表示する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _truncate([$line, $line-height]);
+</code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><code>$line</code></td>
+    <td>Number</td>
+    <td><code>1</code></td>
+    <td>行數</td>
+  </tr>
+  <tr>
+    <td><code>$line-height</code></td>
+    <td>Number</td>
+    <td><code>null</code></td>
+    <td>この引数を指定すると、<code>-webkit-line-clamp</code> プロパティに対応していないブラウザの表示を最適化できる。</td>
+  </tr>
+</table>
+
+**Example 1:**
+
+```html
+<div class="element">...</div>
+```
+```scss
+// SCSS
+.element {
+  @include _truncate;
+}
+```
+```css
+/* CSS */
+.element {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+```
+
+引数を指定しなければ1行の省略となる。
+
+**Example 2:**
+
+```html
+<div class="element">...</div>
+```
+```scss
+// SCSS
+.element {
+  @include _truncate(3, 1.7);
+}
+```
+```css
+/* CSS */
+.element {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  max-height: 5.1em;
+  line-height: 1.8;
+  overflow: hidden;
+}
+```
+
+3行目に省略記号が表示され、`-webkit-line-clamp` プロパティに非対応のブラウザでは違和感がないように調整される。ただし、非対応のブラウザでは省略記号 `...` は表示されない。
+
+### Layout
+
+#### `_aspect-ratio`
+
+アスペクト比を固定する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _aspect-ratio($width, $height, $selector, $fit);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$width</code></td>
@@ -276,11 +641,13 @@ body {
 ```
 
 ```scss
+// SCSS
 .parent {
   @include _aspect-ratio(3, 2, '> .child');
 }
-
-// Output
+```
+```css
+/* CSS */
 .parent {
   position: relative;
 }
@@ -297,6 +664,8 @@ body {
   height: 100%;
 }
 ```
+
+`.child` のアスペクト比を `3:2` に固定している。
 
 **Example 2:**
 
@@ -322,24 +691,38 @@ body {
 }
 ```
 
-3:2 の領域をはみ出したときでも、高さが自動調整されてフィットします。
+`3:2` の領域をはみ出したときでも、高さが自動調整されて伸びる。
 
 #### `_clearfix`
 
-```scss
-@include _clearfix;
-```
-
 `float` の解除をします。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _clearfix;
+</code></pre>
+    </td>
+  </tr>
+</table>
 
 **Example:**
 
 ```scss
+// SCSS
 .selector {
   @include _clearfix;
 }
-
-// Output
+```
+```css
+/* CSS */
 .selector::after {
   display: block;
   content: '';
@@ -347,13 +730,262 @@ body {
 }
 ```
 
-#### `_sticky-footer`
+#### `_fluid`
+
+1次関数を利用して、画面幅に応じてプロパティの値が流動的に変化する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _fluid($property, $lists...);
+</code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><code>$property</code></td>
+    <td>String</td>
+    <td>-</td>
+    <td>CSSのプロパティ名</td>
+  </tr>
+  <tr>
+    <td><code>$lists...</code></td>
+    <td>List...</td>
+    <td>-</td>
+    <td>画面幅が小さい順に記述された2点以上の座標</td>
+  </tr>
+</table>
+
+**Example 1:**
 
 ```scss
-@include _sticky-footer($main, $footer, $type);
+// SCSS
+body {
+  @include _fluid(font-size, 320px 14px, 1024px 16px);
+}
+```
+```css
+/* CSS */
+body {
+  font-size: 14px;
+}
+@media (min-width: 320px) {
+  body {
+    font-size: calc(0.28409vw + 13.09091px);
+  }
+}
+@media (min-width: 1024px) {
+  body {
+    font-size: 16px;
+  }
+}
 ```
 
-コンテンツが少ない場合でも、フッターを下部に固定します。
+画面幅が `320px` のときは `14px`、画面幅が `1024px` のときは `16px` になり、その間は1次関数的に滑らかに変化する。
+
+**Example 2:**
+
+```scss
+// SCSS
+body {
+  @include _fluid(font-size, 320px 14px, 768px 15px, 1024px 16px);
+}
+```
+```css
+/* CSS */
+body {
+  font-size: 14px;
+}
+@media (min-width: 320px) {
+  body {
+    font-size: calc(0.22321vw + 13.28571px);
+  }
+}
+@media (min-width: 768px) {
+  body {
+    font-size: calc(0.39062vw + 12px);
+  }
+}
+@media (min-width: 1024px) {
+  body {
+    font-size: 16px;
+  }
+}
+```
+
+2点以上の座標を指定できる。
+
+**Example 3:**
+
+```scss
+// SCSS
+html {
+  font-size: 62.5%;  // 10px
+}
+body {
+  @include _fluid(font-size, 320px 14px, 1024px 16px, 10px);
+}
+```
+```css
+/* CSS */
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.4em;
+}
+@media (min-width: 20em) {
+  body {
+    font-size: calc(0.28409vw + 1.30909em);
+  }
+}
+@media (min-width: 64em) {
+  body {
+    font-size: 1.6em;
+  }
+}
+```
+
+アクセシビリティに配慮するため、`px` 値は `em` 値へ変換して出力される。このように親要素 `html` のフォントサイズが `10px` の場合、最後の引数に `em` 値へ変換する際のベースとなるフォントサイズを指定できる。
+
+```scss
+// SCSS
+html {
+  font-size: 62.5%;
+}
+body {
+  @include _fluid(font-size, 320px 1em, 1024px 2em, 10px);
+}
+```
+```css
+/* CSS */
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1em;
+}
+@media (min-width: 20em) {
+  body {
+    font-size: calc(1.42045vw + 0.54545em);
+  }
+}
+@media (min-width: 64em) {
+  body {
+    font-size: 2em;
+  }
+}
+```
+
+もちろんフォントサイズを `em` 値で指定する際も、ベースとなるフォントサイズは `px` 値で指定すればうまく変換される。
+
+**Example 4:**
+
+```scss
+// SCSS
+body {
+  @include _fluid(padding, 320px _rem(15px), 1024px _rem(40px));
+}
+```
+```css
+/* CSS */
+body {
+  padding: 0.9375rem;
+}
+@media (min-width: 20em) {
+  body {
+    padding: calc(3.55114vw + 0.22727rem);
+  }
+}
+@media (min-width: 64em) {
+  body {
+    padding: 2.5rem;
+  }
+}
+```
+
+例えば、画面左右の余白を流動的に変化させたい場合、親要素に影響されない `rem` 単位を使うと思われる。`px` で指定してしまうと自動的に `em` 値へ変換されてしまうため、`_rem()` 関数を使って `px` から `rem` 値へ変換することで対応できる。
+
+#### `_position`
+
+<code>position</code> 関連プロパティを一括指定する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _position($type[, $positions...]);
+</code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><code>$type</code></td>
+    <td>String</td>
+    <td>-</td>
+    <td><code>position</code> プロパティの値</td>
+  </tr>
+  <tr>
+    <td><code>$positions...</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td><code>margin</code> や <code>padding</code> プロパティと同じ構文で指定する</td>
+</table>
+
+**Example 1:**
+
+```scss
+// SCSS
+.element {
+  @include _position(absolute, 0, 5px, 10px);
+}
+```
+```css
+/* CSS */
+.element {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  right: 5px;
+  bottom: 10px;
+}
+```
+
+数値が3つ指定された場合は、上・左右・下になる。
+
+**Example 2:**
+
+```scss
+// SCSS
+.element {
+  @include _position(absolute, $left: 5px);
+}
+```
+```css
+/* CSS */
+.element {
+  position: absolute;
+  left: 5px;
+}
+```
+
+特定のプロパティにのみ値を指定する場合は変数 `$top` `$left` `$right` `$bottom` を使う。また、`null` を使って引数を指定する方法もある。
+
+
+#### `_sticky-footer`
+
+コンテンツが少ない場合でも、フッターを下部に固定する。
 
 <table>
   <tr>
@@ -361,6 +993,13 @@ body {
     <th>Type</th>
     <th>Default</th>
     <th colspan="2">Description</th>
+  </tr>
+  <tr>
+    <td colspan="5">
+      <pre lang="scss"><code>
+@include _sticky-footer($main, $footer, $type);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$main</code></td>
@@ -410,9 +1049,11 @@ body {
 ```
 
 ```scss
-@include _sticky-footer();
-
-// Output
+// SCSS
+@include _sticky-footer;
+```
+```css
+/* CSS */
 html, body {
   height: 100%;
 }
@@ -440,9 +1081,11 @@ body {
 ```
 
 ```scss
+// SCSS
 @include _sticky-footer($type: grid);
-
-// Output
+```
+```css
+/* CSS */
 html, body {
   height: 100%;
 }
@@ -454,10 +1097,6 @@ body {
 
 #### `_z-index`
 
-```scss
-_z-index($keys...);
-```
-
 `z-index` 値を自動的に算出する。
 
 <table>
@@ -466,6 +1105,13 @@ _z-index($keys...);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _z-index($keys...);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$keys...</code></td>
@@ -478,6 +1124,8 @@ _z-index($keys...);
 **Example 1:**
 
 ```scss
+// SCSS
+
 // Before import @takamoso/tatami
 $_z-indexes: (
   header,
@@ -496,8 +1144,9 @@ $_z-indexes: (
 .footer {
   z-index: _z-index(footer);
 }
-
-// Output
+```
+```css
+/* CSS */
 .header {
   z-index: 1;
 }
@@ -512,6 +1161,8 @@ $_z-indexes: (
 **Example 2:**
 
 ```scss
+// SCSS
+
 // Before import @takamoso/tatami
 $_z-indexes: (
   header,
@@ -531,8 +1182,9 @@ $_z-index-reverse: true;
 .footer {
   z-index: _z-index(footer);
 }
-
-// Output
+```
+```css
+/* CSS */
 .header {
   z-index: 3;
 }
@@ -544,11 +1196,13 @@ $_z-index-reverse: true;
 }
 ```
 
-`$_z-index-reverse` を `true` にすると、逆順で出力します。
+`$_z-index-reverse` を `true` にすると、逆順で出力する。
 
 **Example 3:**
 
 ```scss
+// SCSS
+
 // Before import @takamoso/tatami
 $_z-indexes: (
   header: (),
@@ -568,8 +1222,9 @@ $_z-indexes: (
 .main .right {
   z-index: _z-index(main, right);
 }
-
-// Output
+```
+```css
+/* CSS */
 .main .left {
   z-index: 2;
 }
@@ -578,17 +1233,13 @@ $_z-indexes: (
 }
 ```
 
-ネストする際に、下階層がない場合は空配列 `()` を指定しておきます。
+ネストする際に、下階層がない場合は空配列 `()` を指定しておく。
 
-### Utilities
+### Utility
 
 #### `_em`
 
-```scss
-_em($values, $base);
-```
-
-`px` 値を `em` へ変換します。
+`px` 値を `em` へ変換する。
 
 <table>
   <tr>
@@ -596,6 +1247,13 @@ _em($values, $base);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _em($values, $base);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$values</code>
@@ -614,13 +1272,15 @@ _em($values, $base);
 **Example:**
 
 ```scss
+// SCSS
 body {
   font-size: _em(18px);
   margin: _em(10px 20px, 18px);
   padding: _em(15px 30px, 18px)
 }
-
-// Output
+```
+```css
+/* CSS */
 body {
   font-size: 1.125em;
   margin: 0.55556em 1.11111em;
@@ -630,11 +1290,7 @@ body {
 
 #### `_is-bool`
 
-```scss
-_is-bool($var);
-```
-
-Boolean 型かどうかを判定します。
+Boolean型かどうかを判定する。
 
 <table>
   <tr>
@@ -642,6 +1298,13 @@ Boolean 型かどうかを判定します。
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _is-bool($var);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$var</code></td>
@@ -653,11 +1316,7 @@ Boolean 型かどうかを判定します。
 
 #### `_is-list`
 
-```scss
-_is-list($var);
-```
-
-List 型かどうかを判定します。
+List型かどうかを判定する。
 
 <table>
   <tr>
@@ -665,6 +1324,13 @@ List 型かどうかを判定します。
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _is-list($var);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$var</code></td>
@@ -676,11 +1342,7 @@ List 型かどうかを判定します。
 
 #### `_is-map`
 
-```scss
-_is-map($var);
-```
-
-Map 型かどうかを判定します。
+Map型かどうかを判定する。
 
 <table>
   <tr>
@@ -688,6 +1350,13 @@ Map 型かどうかを判定します。
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _is-map($var);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$var</code></td>
@@ -699,11 +1368,7 @@ Map 型かどうかを判定します。
 
 #### `_is-num`
 
-```scss
-_is-num($var);
-```
-
-Number 型かどうかを判定します。
+Number型かどうかを判定する。
 
 <table>
   <tr>
@@ -711,6 +1376,13 @@ Number 型かどうかを判定します。
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _is-num($var);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$var</code></td>
@@ -722,11 +1394,7 @@ Number 型かどうかを判定します。
 
 #### `_is-str`
 
-```scss
-_is-str($var);
-```
-
-String 型かどうかを判定します。
+String型かどうかを判定する。
 
 <table>
   <tr>
@@ -734,6 +1402,13 @@ String 型かどうかを判定します。
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _is-str($var);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$var</code></td>
@@ -745,10 +1420,6 @@ String 型かどうかを判定します。
 
 #### `_list-get`
 
-```scss
-_list-get($list, $indexes...);
-```
-
 配列の値を取得する。
 
 <table>
@@ -757,6 +1428,13 @@ _list-get($list, $indexes...);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _list-get($list, $indexes...);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$list</code></td>
@@ -784,10 +1462,6 @@ _list-get($list, $indexes...);
 
 #### `_list-includes`
 
-```scss
-_list-includes($list, $value);
-```
-
 特定の値が配列に含まれているかどうかを判定する。
 
 <table>
@@ -796,6 +1470,13 @@ _list-includes($list, $value);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _list-includes($list, $value);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$list</code></td>
@@ -825,10 +1506,6 @@ $list: a b c d;
 
 #### `_list-prepend`
 
-```scss
-_list-prepend($list, $value);
-```
-
 配列の先頭に値を追加する。
 
 <table>
@@ -837,6 +1514,13 @@ _list-prepend($list, $value);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _list-prepend($list, $value);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$list</code></td>
@@ -866,10 +1550,6 @@ $list: a b c d;
 
 #### `_list-remove`
 
-```scss
-_list-remove($list, $index);
-```
-
 配列から指定した番目の要素を削除する。
 
 <table>
@@ -878,6 +1558,13 @@ _list-remove($list, $index);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _list-remove($list, $index);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$list</code></td>
@@ -905,11 +1592,54 @@ $list: a, b, c, d;
 // => a c d
 ```
 
-#### `_list-set`
+#### `_list-replace`
+
+配列の指定番目の値を置き換える。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _list-replace($list, $index, $value);
+</code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><code>$list</code></td>
+    <td>List</td>
+    <td>-</td>
+    <td>対象となる配列</td>
+  </tr>
+  <tr>
+    <td><code>$index</code></td>
+    <td>Number</td>
+    <td>-</td>
+    <td>置き換える番目</td>
+  </tr>
+  <tr>
+    <td><code>$value</code></td>
+    <td>Any</td>
+    <td>-</td>
+    <td>置き換える値</td>
+  </tr>
+</table>
+
+**Example:**
 
 ```scss
-_list-set($list, $indexes...);
+$list: a, b, c, d;
+
+@debug _list-replace($list, 3, e);
+// => a b e d
 ```
+
+#### `_list-set`
 
 配列に値を代入する。
 
@@ -919,6 +1649,13 @@ _list-set($list, $indexes...);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _list-set($list, $indexes...);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$list</code></td>
@@ -946,11 +1683,7 @@ _list-set($list, $indexes...);
 
 #### `_list-slice`
 
-```scss
-_list-slice($list, $start, $end);
-```
-
-配列から指定された範囲を抜き出した配列を生成します。
+配列から指定された範囲を抜き出した配列を生成する。
 
 <table>
   <tr>
@@ -958,6 +1691,13 @@ _list-slice($list, $start, $end);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _list-slice($list, $start, $end);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$list</code></td>
@@ -993,10 +1733,6 @@ $list: a, b, c, d;
 
 #### `_map-get`
 
-```scss
-_map-get($map, $keys...);
-```
-
 ネストされた連想配列の値を取得する。
 
 <table>
@@ -1005,6 +1741,13 @@ _map-get($map, $keys...);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _map-get($map, $keys...);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$map</code></td>
@@ -1041,10 +1784,6 @@ $map: (
 
 #### `_map-merge`
 
-```scss
-_map-merge($map...);
-```
-
 2つ以上の連想配列をマージする。
 
 <table>
@@ -1053,6 +1792,13 @@ _map-merge($map...);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _map-merge($map...);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$map...</code>
@@ -1087,11 +1833,7 @@ $map2: (
 
 #### `_rem`
 
-```scss
-_rem($values, $base);
-```
-
-`px` 値を `rem` へ変換します。
+`px` 値を `rem` へ変換する。
 
 <table>
   <tr>
@@ -1099,6 +1841,13 @@ _rem($values, $base);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _rem($values, $base);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$values</code>
@@ -1117,12 +1866,14 @@ _rem($values, $base);
 **Example:**
 
 ```scss
+// SCSS
 body {
   font-size: _rem(18px);
   padding: _rem(10px 20px);
 }
-
-// Output
+```
+```css
+/* CSS */
 body {
   font-size: 1.125rem;
   padding: 0.625rem 1.25rem;
@@ -1131,16 +1882,19 @@ body {
 
 #### `_selector-split`
 
-```scss
-_selector-split($string);
-```
-
 <table>
   <tr>
     <th>Parameter</th>
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _selector-split($string);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$string</code>
@@ -1160,11 +1914,51 @@ _selector-split($string);
 // => (('a:not([target="_blank"])', ">", "span"))
 ```
 
-#### `_str-join`
+#### `_str-includes`
+
+文字列が特定の文字列を含むか判定する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _str-includes($string, $value);
+</code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><code>$string</code></td>
+    <td>String</td>
+    <td>-</td>
+    <td>対象となる文字列</td>
+  </tr>
+  <tr>
+    <td><code>$value</code></td>
+    <td>String</td>
+    <td>-</td>
+    <td>判定したい文字列</td>
+  </tr>
+</table>
+
+**Example:**
 
 ```scss
-_str-join($list, $separator);
+$string: 'takamoso';
+
+@debug _str-includes($string, 'o');
+// => true
+
+@debug _str-includes($string, 'e');
+// => false
 ```
+
+#### `_str-join`
 
 配列の全ての要素を連結した文字列を生成する。
 
@@ -1174,6 +1968,13 @@ _str-join($list, $separator);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _str-join($list, $separator);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$list</code></td>
@@ -1203,10 +2004,6 @@ $list: a, b, c, d;
 
 #### `_str-replace`
 
-```scss
-_str-replace($string, $search, $replacement);
-```
-
 パターンにマッチした文字列を置き換える。
 
 <table>
@@ -1215,6 +2012,13 @@ _str-replace($string, $search, $replacement);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _str-replace($string, $search, $replacement);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$string</code></td>
@@ -1250,10 +2054,6 @@ $string: 'takamoso';
 
 #### `_str-split`
 
-```scss
-_str-split($string, $separator, $limit);
-```
-
 文字列を指定した文字列で分割する。
 
 <table>
@@ -1262,6 +2062,13 @@ _str-split($string, $separator, $limit);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _str-split($string, $separator, $limit);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$string</code></td>
@@ -1300,10 +2107,6 @@ $string: 'takamoso';
 
 #### `_str-trim`
 
-```scss
-_str-trim($string);
-```
-
 文字列の両端の空白を削除する。
 
 <table>
@@ -1312,6 +2115,13 @@ _str-trim($string);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _str-trim($string);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$string</code></td>
@@ -1330,11 +2140,7 @@ _str-trim($string);
 
 #### `_strip-unit`
 
-```scss
-_strip-unit($number);
-```
-
-数値の単位を取り除きます。
+数値の単位を取り除く。
 
 <table>
   <tr>
@@ -1342,6 +2148,13 @@ _strip-unit($number);
     <th>Type</th>
     <th>Default</th>
     <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _strip-unit($number);
+</code></pre>
+    </td>
   </tr>
   <tr>
     <td><code>$number</code></td>
