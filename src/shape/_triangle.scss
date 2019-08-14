@@ -1,0 +1,75 @@
+@mixin _triangle($direction, $width: null, $height: null, $color: currentColor, $method: border, $responsive: false) {
+  @if $method == border {
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+
+    @if $direction == top {
+      border-width: 0 $width / 2 $height;
+      border-color: transparent transparent $color;
+    } @else if $direction == left {
+      border-width: $height / 2 $width $height / 2 0;
+      border-color: transparent $color transparent transparent;
+    } @else if $direction == right {
+      border-width: $height / 2 0 $height / 2 $width;
+      border-color: transparent transparent transparent $color;
+    } @else if $direction == bottom {
+      border-width: $height $width / 2 0;
+      border-color: $color transparent transparent;
+    } @else if $direction == top-left {
+      border-width: $height $width 0 0;
+      border-color: $color transparent transparent;
+    } @else if $direction == top-right {
+      border-width: $height 0 0 $width;
+      border-color: $color transparent transparent;
+    } @else if $direction == bottom-left {
+      border-width: 0 $width $height 0;
+      border-color: transparent transparent $color;
+    } @else if $direction == bottom-right {
+      border-width: 0 0 $height $width;
+      border-color: transparent transparent $color;
+    }
+  } @else if $method == gradient {
+    @if not $responsive {
+      width: $width;
+      height: $height;
+    }
+
+    @if $direction == top {
+      background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%),
+                        linear-gradient(to bottom left, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%);
+      background-position: 0 0, 100% 0;
+      background-size: calc(50% + .03px) 100%;
+    } @else if $direction == left {
+      background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%),
+                        linear-gradient(to top right, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%);
+      background-position: 0 0, 0 100%;
+      background-size: 100% calc(50% + .03px);
+    } @else if $direction == right {
+      background-image: linear-gradient(to bottom left, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%),
+                        linear-gradient(to top left, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%);
+      background-position: 100% 0, 100% 100%;
+      background-size: 100% calc(50% + .03px);
+    } @else if $direction == bottom {
+      background-image: linear-gradient(to top right, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%),
+                        linear-gradient(to top left, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%);
+      background-position: 0 0, 100% 0;
+      background-size: calc(50% + .03px) 100%;
+    } @else if $direction == top-left {
+      background-image: linear-gradient(to top left, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%);
+      background-position: 100% 100%;
+    } @else if $direction == top-right {
+      background-image: linear-gradient(to top right, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%);
+      background-position: 0 100%;
+    } @else if $direction == bottom-left {
+      background-image: linear-gradient(to bottom left, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%);
+      background-position: 100% 100%;
+    } @else if $direction == bottom-right {
+      background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0) calc(50% - 1px), $color 50%);
+      background-position: 0 0;
+    }
+
+    background-repeat: no-repeat;
+  }
+}

@@ -23,6 +23,8 @@
     - [`_position`](#_position)
     - [`_sticky-footer`](#_sticky-footer)
     - [`_z-index`](#_z-index)
+  - [Shape](#shape)
+    - [`_triangle`](#_triangle)
   - [Utility](#utility)
     - [`_em`](#_em)
     - [`_is-bool`](#_is-bool)
@@ -1235,6 +1237,155 @@ $_z-indexes: (
 
 ネストする際に、下階層がない場合は空配列 `()` を指定しておく。
 
+### Shape
+
+#### `_triangle`
+
+三角形を描画する。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="5">
+      <pre lang="scss"><code>
+@include _triangle($direction, $width, $height, $color, $method, $responsive);
+</code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="9" valign="top"><code>$direction</code></td>
+    <td rowspan="9" valign="top">String</td>
+    <td rowspan="9" valign="top">-</td>
+    <td colspan="2">三角形の向き</td>
+  </tr>
+  <tr>
+    <td><code>top</code></td>
+    <td>上向き</td>
+  </tr>
+  <tr>
+    <td><code>left</code></td>
+    <td>左向き</td>
+  </tr>
+  <tr>
+    <td><code>right</code></td>
+    <td>右向き</td>
+  </tr>
+  <tr>
+    <td><code>bottom</code></td>
+    <td>下向き</td>
+  </tr>
+  <tr>
+    <td><code>top-left</code></td>
+    <td>左上向き</td>
+  </tr>
+  <tr>
+    <td><code>top-right</code></td>
+    <td>右上向き</td>
+  </tr>
+  <tr>
+    <td><code>bottom-left</code></td>
+    <td>左下向き</td>
+  </tr>
+  <tr>
+    <td><code>bottom-right</code></td>
+    <td>右下向き</td>
+  </tr>
+  <tr>
+    <td><code>$width</code></td>
+    <td>Number</td>
+    <td><code>null</code></td>
+    <td colspan="2">横幅</td>
+  </tr>
+  <tr>
+    <td><code>$height</code></td>
+    <td>Number</td>
+    <td><code>null</code></td>
+    <td colspan="2">縦幅</td>
+  </tr>
+  <tr>
+    <td><code>$color</code></td>
+    <td>Color</td>
+    <td><code>currentColor</code></td>
+    <td colspan="2">色</td>
+  </tr>
+  <tr>
+    <td rowspan="3"><code>$method</code></td>
+    <td rowspan="3">String</td>
+    <td rowspan="3"><code>border</code></td>
+    <td colspan="2">描画手法</td>
+  </tr>
+  <tr>
+    <td><code>border</code></td>
+    <td><code>border</code> プロパティを使った手法</td>
+  </tr>
+  <tr>
+    <td><code>gradient</code></td>
+    <td><code>linear-gradient()</code> を使った手法</td>
+  </tr>
+</table>
+
+**Example 1:**
+
+```scss
+// SCSS
+.element {
+  @include _triangle(top, 200px, 100px, #111);
+}
+```
+```css
+/* CSS */
+.element {
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 100px 100px;
+  border-color: transparent transparent #111;
+}
+```
+
+**Example 2:**
+
+```scss
+// SCSS
+.wrapper {
+  @include _aspect-ratio(3, 2, '> .element');
+}
+.element {
+  @include _triangle(top, $color: #111, $method: gradient, $responsive: true);
+}
+```
+```css
+/* CSS */
+.wrapper {
+  position: relative;
+}
+.wrapper::before {
+  display: block;
+  padding-top: 66.66667%;
+  content: '';
+}
+.wrapper > .element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.element {
+  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0) calc(50% - 1px), #111 50%), linear-gradient(to bottom left, rgba(255, 255, 255, 0) calc(50% - 1px), #111 50%);
+  background-position: 0 0, 100% 0;
+  background-size: calc(50% + .03px) 100%;
+  background-repeat: no-repeat;
+}
+```
+
+三角形を横幅に応じて可変（レスポンシブ化）させたい場合は、引数 `$method` に `gradient`、`$responsive` に `true` を指定する。このとき、引数 `$width` と `$height` は指定する必要はない。あとは [_aspect-ratio()](#_aspect-ratio) 関数を使って <code>3:2</code> の要素を作成すればよい。
 ### Utility
 
 #### `_em`
