@@ -1287,11 +1287,11 @@ $_z-indexes: (
   </tr>
   <tr>
     <td><code>top-right</code></td>
-    <td>右上向き</td>
+    <td>右上向き</td>
   </tr>
   <tr>
     <td><code>bottom-left</code></td>
-    <td>左下向き</td>
+    <td>左下向き</td>
   </tr>
   <tr>
     <td><code>bottom-right</code></td>
