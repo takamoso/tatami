@@ -1329,6 +1329,12 @@ $_z-indexes: (
     <td><code>gradient</code></td>
     <td><code>linear-gradient()</code> を使った手法</td>
   </tr>
+  <tr>
+    <td><code>$responsive</code></td>
+    <td>Boolean</td>
+    <td><code>false</code></td>
+    <td colspan="2">レスポンシブ化するか</td>
+  </tr>
 </table>
 
 **Example 1:**
