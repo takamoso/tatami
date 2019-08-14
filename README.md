@@ -25,6 +25,8 @@
     - [`_z-index`](#_z-index)
   - [Shape](#shape)
     - [`_triangle`](#_triangle)
+  - [Animation](#animation)
+    - [`_transition`](#_transition)
   - [Utility](#utility)
     - [`_em`](#_em)
     - [`_is-bool`](#_is-bool)
@@ -561,7 +563,7 @@ $_media-breakpoints: (
 }
 ```
 
-引数を指定しなければ1行の省略となる。
+引数を指定しなければ1行の省略となる。
 
 **Example 2:**
 
@@ -592,7 +594,7 @@ $_media-breakpoints: (
 
 #### `_aspect-ratio`
 
-アスペクト比を固定する。
+アスペクト比を固定する。
 
 <table>
   <tr>
@@ -1386,6 +1388,77 @@ $_z-indexes: (
 ```
 
 三角形を横幅に応じて可変（レスポンシブ化）させたい場合は、引数 `$method` に `gradient`、`$responsive` に `true` を指定する。このとき、引数 `$width` と `$height` は指定する必要はない。あとは [_aspect-ratio()](#_aspect-ratio) 関数を使って <code>3:2</code> の要素を作成すればよい。
+
+### Animation
+
+#### `_transition`
+
+`transition` プロパティを容易に指定できるようにする。
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <pre lang="scss"><code>
+@include _transition([$transitions...]);
+</code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><code>$transitions...</code></td>
+    <td>List</td>
+    <td><code>$_transition</code></td>
+    <td><code>transition</code> プロパティの値</td>
+  </tr>
+</table>
+
+**Example 1:**
+
+```scss
+// SCSS
+.element {
+  @include _transition;
+}
+```
+```css
+/* CSS */
+.element {
+  transition: 0.3s;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  .element {
+    transition: none;
+  }
+}
+```
+
+引数を指定しない場合は、変数 `$_transition` に指定されたデフォルト値が使われる。
+
+**Example 2:**
+
+```scss
+// SCSS
+.element {
+  @include _transition(color .3s, background-color .2s linear);
+}
+```
+```css
+/* CSS */
+.element {
+  transition: color 0.3s, background-color 0.2s linear;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  .element {
+    transition: none;
+  }
+}
+```
+
 ### Utility
 
 #### `_em`
