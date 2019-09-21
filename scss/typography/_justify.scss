@@ -1,4 +1,10 @@
-@mixin _justify() {
+@mixin _justify($first: false) {
   text-align: justify;
   text-justify: inter-ideograph;
+
+  @if $first {
+    &::first-line {
+      text-align-last: justify;
+    }
+  }
 }
