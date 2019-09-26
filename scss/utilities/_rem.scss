@@ -6,7 +6,7 @@
   $result: ();
   
   @each $value in $values {
-    $result: append($result, _strip-unit($value) / _strip-unit($base) * 1rem);
+    $result: append($result, if(_strip-unit($value) == 0, 0, _strip-unit($value) / _strip-unit($base) * 1rem));
   }
 
   @return if(length($values) == 1, nth($result, 1), $result);
