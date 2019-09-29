@@ -20,24 +20,11 @@
   ],
   "author": "takamoso",
   "license": "MIT",
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ]
-  },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/register": "^7.4.0",
-    "gulp": "^4.0.0",
-    "gulp-sass": "^4.0.2",
-    "node-sass-magic-importer": "^5.3.1"
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/register": "^7.6.2",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.0.2"
   }
 }
