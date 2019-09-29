@@ -1,0 +1,10 @@
+.p.justify.preview {
+  .justify {
+    width: 100%;
+    @include _justify;
+  }
+  .first {
+    width: 100%;
+    @include _justify(true);
+  }
+}

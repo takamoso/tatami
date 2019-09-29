@@ -1,0 +1,153 @@
+.p-post__code {
+  margin: 1.4em 0;
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  &[data-title]::before {
+    display: inline-block;
+    margin: -1px 0 0 -1px;
+    padding: .2em .8em;
+    content: attr(data-title);
+    color: #1699cb;
+    line-height: 1.5;
+    font-size: .88em;
+    border: 1px solid #1699cb;
+    border-radius: 2px 0 0;
+  }
+}
+
+pre[class*=language-] {
+  display: block;
+  //padding: 1.15em 1.3em;
+  //line-height: 1.57;
+}
+pre[class*=language-] code,
+:not(pre):not([class*="language-"]) code {
+  font-family: 'Source Code Pro', 'Noto Sans JP', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+pre[class*="language-"],
+pre[class*="language-"] code {
+  text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	tab-size: 2;
+	hyphens: none;
+}
+pre[class*="language-"] {
+  margin: 0 0 1.4em;
+  line-height: 1.55;
+  background-color: #f9fafb;
+  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  &[data-title] {
+    position: relative;
+    padding-top: 1.3em;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: attr(data-title);
+      padding: .2em .5em;
+      color: rgba(0, 0, 0, .36);
+      font-size: .85em;
+      background-color: #ebeef1;
+    }
+  }
+}
+pre[class*="language-"] code {
+  display: inline-block;
+  position: relative;
+  //min-width: 100%;
+  padding: 1.1em;
+}
+
+:not(pre):not([class*="language-"]) > code {
+  margin: 0 .1em;
+	padding: .15em .5em;
+  color: #3db57c;
+  font-size: .94em;
+	border-radius: 3px;
+	white-space: normal;
+  word-break: break-all;
+  //background-color: #f7fcfd;
+  background-color: #f5f7f9;
+}
+.token.boolean {
+  color: #718ca1;
+}
+.token.number,
+.token.attr {
+  color: #82529b;
+}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a737d;
+}
+.token.namespace {
+  opacity: .7;
+}
+.token.tag,
+.token.property,
+.token.value,
+.token.function {
+  color: #455fb5;
+}
+.token.selector,
+.token.attr-name {
+  color: #088b8b;
+}
+.token.attribute,
+.token.cron {
+  color: #5f5f5f;
+}
+.token.pseudo-class,
+.token.pseudo-element {
+  color: #b3436f;
+}
+.token.keyword,
+.token.entity,
+.token.string,
+.token.attr-value,
+.token.control,
+.token.directive,
+.token.unit {
+  color: #dc3e65;
+}
+.token.placeholder,
+.token.variable {
+  color: #6684e1;
+}
+.token.deleted {
+  text-decoration: line-through;
+}
+.token.inserted {
+  border-bottom: 1px dotted #20201d;
+  text-decoration: none;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.important {
+  color: #f17b7b;
+}
+.token.entity {
+  cursor: help;
+}
+
+/**
+ * 色コードのプレビュー表示
+ */
+
+.color-preview {
+  display: inline-block;
+  margin: 0 .18em 0 0;
+  width: .89em;
+  height: .9em;
+  vertical-align: middle;
+  border-radius: 2px;
+  transform: translateY(-.09em);
+}

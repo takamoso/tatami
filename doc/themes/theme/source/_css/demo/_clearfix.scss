@@ -1,0 +1,11 @@
+.p.clearfix.preview {
+  .list {
+    width: 100%;
+    @include _clearfix;
+    .item {
+      float: left;
+      width: percentage(1/3);
+      text-align: center;
+    }
+  }
+}

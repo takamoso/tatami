@@ -1,0 +1,8 @@
+.p.fluid.preview {
+  .fluid {
+    @include _fluid(font-size, 320px 14px, 1440px 20px);
+  }
+  .complex {
+    @include _fluid(font-size, 320px 14px, 1024px 17px, 1440px 20px);
+  }
+}

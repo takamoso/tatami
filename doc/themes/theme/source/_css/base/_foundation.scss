@@ -1,0 +1,12 @@
+body {
+  color: rgba(0, 0, 0, .77);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  @include _fluid(font-size, 320px 15px, 1024px 16px);
+  font-family: 'Noto Sans JP', sans-serif;
+  overscroll-behavior-y: none;
+}

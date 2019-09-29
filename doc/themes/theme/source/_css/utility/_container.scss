@@ -1,0 +1,7 @@
+.u.container {
+  max-width: _rem(1280px);
+  margin-left: auto;
+  margin-right: auto;
+  @include _fluid(padding-left, 320px 15px, 1280px 40px);
+  @include _fluid(padding-right, 320px 15px, 1280px 40px);
+}

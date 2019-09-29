@@ -1,0 +1,29 @@
+.c.browser {
+  position: relative;
+  width: 100%;
+  border: 1px solid #dedede;
+  border-radius: _rem(4px 4px) 0 0;
+  &::before {
+    display: block;
+    height: 2em;;
+    content: '';
+    border-bottom: 1px solid #e2e2e2;
+    border-radius: _rem(3px 3px) 0 0;
+    background-color: #f8f8f8;
+  }
+  &::after {
+    position: absolute;
+    top: 1em;
+    left: .8em;
+    width: .7em;
+    height: .7em;
+    content: '';
+    border-radius: 50%;
+    background-color: #ea6a5f;
+    box-shadow: 1.2em 0 0 #f3bf4f, 2.4em 0 0 #67c554;
+    transform: translateY(-50%);
+  }
+  > .inner {
+    padding: 1em 1.1em;
+  }
+}

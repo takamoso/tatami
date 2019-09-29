@@ -1,0 +1,36 @@
+{
+  "name": "@takamoso/tatami-doc",
+  "private": true,
+  "hexo": {
+    "version": "3.9.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "babel-loader": "^8.0.6",
+    "browser-sync": "^2.26.7",
+    "cssnano": "^4.1.10",
+    "gulp": "^4.0.2",
+    "gulp-if": "^3.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass-variables": "^1.2.0",
+    "gulp-touch-cmd": "0.0.1",
+    "hexo": "^3.9.0",
+    "hexo-generator-archive": "^0.1.5",
+    "hexo-generator-category": "^0.1.3",
+    "hexo-generator-index": "^0.2.1",
+    "hexo-generator-tag": "^0.2.0",
+    "hexo-renderer-ejs": "^1.0.0",
+    "hexo-renderer-marked": "^2.0.0",
+    "html-minifier": "^4.0.0",
+    "node-sass-magic-importer": "^5.3.2",
+    "prismjs": "^1.17.1",
+    "sticky-sidebar": "^3.3.1",
+    "terser-webpack-plugin": "^2.1.0",
+    "webpack": "^4.41.0",
+    "webpack-stream": "^5.2.1"
+  },
+  "dependencies": {
+    "core-js": "^3.2.1"
+  }
+}

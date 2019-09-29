@@ -1,0 +1,70 @@
+.p.content {
+  line-height: 1.7;
+  > h1 {
+    margin: 0 0 .1em;
+    color: #1a2c26;
+    @include _fluid(font-size, 320px 1.6em, 1280px 1.9em);
+    font-weight: 400;
+    + p {
+      margin: 0 0 2.1em;
+      color: rgba(0, 0, 0, .46);
+      font-size: .95em;
+    }
+  }
+  > h2, > h3 {
+    font-weight: 500;
+  }
+  > h2 {
+    margin: 2.3em 0 1.1em;
+    @include _fluid(font-size, 320px 1.5em, 1280px 1.6em);
+  }
+  > h3 {
+    margin: 1.8em 0 .7em;
+    @include _fluid(font-size, 320px 1.2em, 1280px 1.25em);
+  }
+  > p {
+    margin: 0 0 1.6em;
+  }
+  a {
+    color: #388bd0;
+    font-weight: 500;
+  }
+  > table {
+    display: block;
+    margin: 0 0 2.4em;
+    line-height: 1.6;
+    border-collapse: collapse;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    tbody {
+      display: table;
+      width: 100%;
+    }
+    tr {
+      &:nth-child(2) {
+        td[colspan] {
+          padding: .4em 0;
+          background-color: #f9fafb;
+        }
+      }
+      &:not(:nth-child(2)) td:not(:nth-child(4)) {
+        white-space: nowrap;
+        > code {
+          white-space: inherit;
+        }
+      }
+    }
+    th, td {
+      padding: .6em 1em;
+      border: 1px solid #e3e3e3;
+    }
+    th {
+      text-align: left;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    pre {
+      margin: 0;
+    }
+  }
+}

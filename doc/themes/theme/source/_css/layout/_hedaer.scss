@@ -1,0 +1,28 @@
+.l.header {
+  border-bottom: 1px solid #e8e8e8;
+  background-color: rgba(255, 255, 255, .98);
+  > .container {
+    display: flex;
+    height: _rem(64px);
+    align-items: center;
+    justify-content: space-between;
+    .logo {
+      svg {
+        display: block;
+        height: _rem(14px);
+      }
+    }
+    .button {
+      border: 0;
+      background-color: transparent;
+      @include _media-up-than(991px) {
+        display: none;
+      }
+      > svg {
+        width: _rem(24px);
+        height: _rem(24px);
+        overflow: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.p.toc {
+  width: _rem(240px);
+  margin-left: _rem(40px);
+  > .inner {
+    transform: translate3d(0, 0, 0);
+    will-change: position, transform;
+  }
+  @include _media-down(1280px) {
+    display: none;
+  }
+}

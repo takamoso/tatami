@@ -1,0 +1,12 @@
+.p.triangle.preview {
+  > .triangle {
+    @include _triangle(top, 200px, 100px, #3db57c);
+  }
+  > .responsive {
+    width: 100%;
+    @include _aspect-ratio(3, 2, '> .triangle');
+    .triangle {
+      @include _triangle(top, $color: #3db57c, $method: gradient, $responsive: true);
+    }
+  }
+}

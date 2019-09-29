@@ -1,0 +1,53 @@
+.c.demo {
+  margin: 2.2em 0 1.4em;
+  border-top: 1px solid #ececec;
+  border-left: 1px solid #ececec;
+  border-right: 1px solid #ececec;
+  .preview {
+    display: flex;
+    position: relative;
+    padding: _rem(47px 15px 25px);
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ececec;
+    z-index: 2;
+    &::before {
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      padding: .15em .5em;
+      content: 'demo';
+      color: #3db57c;
+      text-transform: uppercase;
+      font-size: .85em;
+      border: 1px solid #3db57c;
+    }
+  }
+  .code {
+    pre {
+      position: relative;
+      margin: 0;
+      padding-top: 1.3em;
+      border-bottom: 1px solid #ececec;
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: .2em .5em;
+        color: rgba(0, 0, 0, .36);
+        text-transform: uppercase;
+        font-size: .85em;
+        background-color: #ebeef1;
+      }
+      &[class*="language-html"]::before {
+        content: 'html';
+      }
+      &[class*="language-css"]::before {
+        content: 'css';
+      }
+      &[class*="language-scss"]::before {
+        content: 'scss';
+      }
+    }
+  }
+}

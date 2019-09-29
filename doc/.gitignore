@@ -1,0 +1,12 @@
+# Folder
+
+node_modules/
+public/
+.deploy*/
+
+# File
+
+.DS_Store
+Thumbs.db
+db.json
+*.log

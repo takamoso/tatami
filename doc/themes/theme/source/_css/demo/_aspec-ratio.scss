@@ -1,0 +1,18 @@
+.p.aspect.ratio.preview {
+  .youtube {
+    width: 100%;
+    @include _aspect-ratio(16, 9, '> iframe');
+  }
+  .overflow {
+    flex: 0 1 _rem(300px);
+    @include _aspect-ratio(3, 2, '> .inner');
+    &::before {
+      background-color: rgba(115, 174, 234, .38);
+    }
+  }
+  .fit {
+    flex: 0 1 _rem(300px);
+    background-color: rgba(115, 174, 234, .38);
+    @include _aspect-ratio(3, 2, $fit: true);
+  }
+}

@@ -1,0 +1,31 @@
+<nav class="p nav">
+  <div class="inner">
+    <h3 class="title">始めよう</h3>
+    <ol class="list">
+      <% if (is_current(url_for('docs/installation/'))) { %>
+        <li class="active item">インストール</li>
+      <% } else { %>
+        <li class="item">
+          <a class="link" href="<%- url_for('docs/installation/') %>">インストール</a>
+        </li>
+      <% } %>
+    </ol>
+    <% let categories = [] %>
+    <% site.categories.each(category => categories.push(category)) %>
+    <% categories = categories.sort((a, b) => theme.category_order.indexOf(a.name) - theme.category_order.indexOf(b.name)) %>
+    <% categories.forEach(category => { %>
+      <h3 class="title"><%- category.name %></h3>
+      <ol class="list">
+        <% category.posts.each(post => { %>
+          <% if (is_current(post.permalink)) { %>
+            <li class="active item"><%- post.title %></li>
+          <% } else { %>
+            <li class="item">
+              <a class="link" href="<%- post.permalink %>"><%- post.title %></a>
+            </li>
+          <% } %>
+        <% }) %>
+      </ol>
+    <% }) %>
+  </div>
+</nav>

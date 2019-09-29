@@ -1,0 +1,10 @@
+.l.wrapper {
+  @include _fluid(margin-top, 320px 16px, 1280px 40px);
+  @include _fluid(margin-bottom, 320px _rem(12px), 1280px 4rem);
+  > .container {
+    display: block;
+    @include _media-up-than(991px) {
+      display: flex;
+    }
+  }
+}

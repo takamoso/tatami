@@ -1,0 +1,27 @@
+.p.sticky.footer.preview {
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: _rem(200px);
+    overflow-y: auto;
+    .main {
+      flex: 1 0 auto;
+    }
+    .button {
+      margin: 0 0 .8em;
+      padding: .7em 1.1em;
+      color: #fff;
+      font-size: .89em;
+      font-weight: 500;
+      border: 0;
+      border-radius: _rem(4px);
+      background-color: #3db57c;
+    }
+    .footer {
+      flex-shrink: 0;
+    }
+    p {
+      margin: 0 0 .5em;
+    }
+  }
+}
