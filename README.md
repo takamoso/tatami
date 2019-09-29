@@ -1250,7 +1250,7 @@ $_z-indexes: (
     <th>Parameter</th>
     <th>Type</th>
     <th>Default</th>
-    <th>Description</th>
+    <th colspan="2">Description</th>
   </tr>
   <tr>
     <td colspan="5">
@@ -1339,6 +1339,9 @@ $_z-indexes: (
 
 **Example 1:**
 
+```html
+<div class="element"></div>
+```
 ```scss
 // SCSS
 .element {
@@ -1359,6 +1362,11 @@ $_z-indexes: (
 
 **Example 2:**
 
+```html
+<div class="wrapper">
+  <div class="element"></div>
+</div>
+```
 ```scss
 // SCSS
 .wrapper {
@@ -1393,7 +1401,7 @@ $_z-indexes: (
 }
 ```
 
-三角形を横幅に応じて可変（レスポンシブ化）させたい場合は、引数 `$method` に `gradient`、`$responsive` に `true` を指定する。このとき、引数 `$width` と `$height` は指定する必要はない。あとは [_aspect-ratio()](#_aspect-ratio) 関数を使って <code>3:2</code> の要素を作成すればよい。
+三角形を横幅に応じて可変（レスポンシブ化）させたい場合は、引数 `$method` に `gradient`、`$responsive` に `true` を指定する。このとき、引数 `$width` と `$height` は指定する必要はない。あとは [`_aspect-ratio()`](#_aspect-ratio) 関数を使って任意のアスペクト比 <code>3:2</code> の要素を作成すればよい。
 
 ### Animation
 
