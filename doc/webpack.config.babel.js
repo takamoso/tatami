@@ -22,6 +22,7 @@ export default {
   optimization: {
     minimizer: [
       new terserPlugin({
+        extractComments: false,
         terserOptions: {
           output: {
             comments: /^!|@preserve|@license|@cc_on|@author/i,

@@ -8,6 +8,8 @@
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
     "browser-sync": "^2.26.7",
+    "core-js": "^3.2.1",
+    "cross-env": "^6.0.0",
     "cssnano": "^4.1.10",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
@@ -30,7 +32,8 @@
     "webpack": "^4.41.0",
     "webpack-stream": "^5.2.1"
   },
-  "dependencies": {
-    "core-js": "^3.2.1"
+  "scripts": {
+    "start": "npx gulp build",
+    "deploy": "cross-env NODE_ENV=\"production\" npx gulp build"
   }
 }
