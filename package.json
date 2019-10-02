@@ -27,5 +27,8 @@
     "core-js": "^3.2.1",
     "gulp": "^4.0.2",
     "gulp-sass": "^4.0.2"
+  },
+  "dependencies": {
+    "node-sass": "^4.12.0"
   }
 }
