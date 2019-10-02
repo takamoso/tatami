@@ -2,7 +2,7 @@
   "name": "@takamoso/tatami",
   "version": "0.2.0",
   "description": "A powerful Sass Framework",
-  "main": "scss/tatami.scss",
+  "main": "src/tatami.scss",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/takamoso/tatami.git"
