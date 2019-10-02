@@ -29,6 +29,7 @@
     "gulp-sass": "^4.0.2"
   },
   "dependencies": {
+    "app-root-path": "^2.2.1",
     "node-sass": "^4.12.0"
   }
 }
