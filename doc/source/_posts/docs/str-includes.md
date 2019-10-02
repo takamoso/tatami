@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _str-includes($string, $value);
+_str-includes($string, $value);
 </code></pre>
     </td>
   </tr>

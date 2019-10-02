@@ -18,7 +18,7 @@ String型かどうかを判定します。
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _is-str($var);
+_is-str($var);
 </code></pre>
     </td>
   </tr>

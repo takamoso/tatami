@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _strip-unit($number);
+_strip-unit($number);
 </code></pre>
     </td>
   </tr>

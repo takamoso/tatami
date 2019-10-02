@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _str-trim($string);
+_str-trim($string);
 </code></pre>
     </td>
   </tr>

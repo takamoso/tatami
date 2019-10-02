@@ -18,12 +18,12 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _map-merge($map...);
+_map-merge($map...);
 </code></pre>
     </td>
   </tr>
   <tr>
-    <td><code>$map...</code></td>
+    <td><code>$map</code></td>
     <td>Map...</td>
     <td></td>
     <td>2つ以上の連想配列</td>

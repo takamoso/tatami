@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _rem($values, $base);
+_rem($values, $base);
 </code></pre>
     </td>
   </tr>

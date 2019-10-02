@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _list-prepend($list, $value);
+_list-prepend($list, $value);
 </code></pre>
     </td>
   </tr>

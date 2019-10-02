@@ -18,12 +18,12 @@ date: 2019-09-19 10:41:23
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _z-index($keys...);
+_z-index($keys...);
 </code></pre>
     </td>
   </tr>
   <tr>
-    <td><code>$keys...</code></td>
+    <td><code>$keys</code></td>
     <td>List</td>
     <td></td>
     <td>キーの配列</td>

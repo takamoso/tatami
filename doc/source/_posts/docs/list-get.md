@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _list-get($list, $indexes...);
+_list-get($list, $indexes...);
 </code></pre>
     </td>
   </tr>
@@ -29,7 +29,7 @@ categories:
     <td>対象となる配列</td>
   </tr>
   <tr>
-    <td><code>$indexes...</code></td>
+    <td><code>$indexes</code></td>
     <td>Number | List	</td>
     <td></td>
     <td>番目の値</td>

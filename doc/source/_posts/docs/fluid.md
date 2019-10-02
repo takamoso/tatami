@@ -29,7 +29,7 @@ date: 2019-09-18 06:44:06
     <td>CSSのプロパティ名</td>
   </tr>
   <tr>
-    <td><code>$lists...</code></td>
+    <td><code>$lists</code></td>
     <td>List...</td>
     <td></td>
     <td>画面幅が小さい順に2点以上の座標を記述する</td>

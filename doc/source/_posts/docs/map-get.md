@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _map-get($map, $keys...);
+_map-get($map, $keys...);
 </code></pre>
     </td>
   </tr>
@@ -29,7 +29,7 @@ categories:
     <td>対象となる連想配列</td>
   </tr>
   <tr>
-    <td><code>$keys...</code></td>
+    <td><code>$keys</code></td>
     <td>List...</td>
     <td></td>
     <td>キーの配列</td>

@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _str-join($list, $separator);
+_str-join($list, $separator);
 </code></pre>
     </td>
   </tr>

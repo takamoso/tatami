@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _str-split($string, $separator, $limit);
+_str-split($string, $separator, $limit);
 </code></pre>
     </td>
   </tr>

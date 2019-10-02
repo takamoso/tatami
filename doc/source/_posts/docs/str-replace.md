@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _str-replace($string, $search, $replacement);
+_str-replace($string, $search, $replacement);
 </code></pre>
     </td>
   </tr>

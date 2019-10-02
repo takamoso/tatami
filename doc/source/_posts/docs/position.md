@@ -29,7 +29,7 @@ date: 2019-09-18 19:19:04
     <td><code><span class="token property">position</span></code> プロパティの値</td>
   </tr>
   <tr>
-    <td><code>$positions...</code></td>
+    <td><code>$positions</code></td>
     <td>List...</td>
     <td></td>
     <td><code><span class="token property">margin</span></code> や <code><span class="token property">padding</span></code> プロパティと同じ構文で指定する</td>

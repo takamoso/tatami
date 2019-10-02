@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _list-remove($list, $index);
+_list-remove($list, $index);
 </code></pre>
     </td>
   </tr>

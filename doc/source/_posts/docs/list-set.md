@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _list-set($list, $indexes...);
+_list-set($list, $indexes...);
 </code></pre>
     </td>
   </tr>
@@ -29,7 +29,7 @@ categories:
     <td>対象となる配列</td>
   </tr>
   <tr>
-    <td><code>$indexes...</code></td>
+    <td><code>$indexes</code></td>
     <td>List...</td>
     <td></td>
     <td>代入する番目の値（配列の最後の値は代入する値）</td>

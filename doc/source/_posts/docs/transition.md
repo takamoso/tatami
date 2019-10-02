@@ -23,7 +23,7 @@ date: 2019-09-22 09:35:49
     </td>
   </tr>
   <tr>
-    <td><code>$transitions...</code></td>
+    <td><code>$transitions</code></td>
     <td>List</td>
     <td><code class="language-scss">.3s</code></td>
     <td><code><span class="token property">transition</span></code> プロパティの値</td>

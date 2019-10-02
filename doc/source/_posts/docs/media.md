@@ -28,7 +28,7 @@ date: 2019-09-19 15:34:33
     </td>
   </tr>
   <tr>
-    <td><code>$queries...</code></td>
+    <td><code>$queries</code></td>
     <td>List...</td>
     <td></td>
     <td>ブレイクポイントやメディア特性</td>

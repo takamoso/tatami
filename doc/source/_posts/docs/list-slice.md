@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _list-slice($list, $start, $end);
+_list-slice($list, $start, $end);
 </code></pre>
     </td>
   </tr>

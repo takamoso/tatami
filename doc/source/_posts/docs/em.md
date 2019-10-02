@@ -18,7 +18,7 @@ categories:
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _em($values, $base);
+_em($values, $base);
 </code></pre>
     </td>
   </tr>

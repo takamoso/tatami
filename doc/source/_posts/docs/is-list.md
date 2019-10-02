@@ -18,7 +18,7 @@ List型かどうかを判定します。
   <tr>
     <td colspan="4">
       <pre class="language-scss"><code>
-@include _is-list($var);
+_is-list($var);
 </code></pre>
     </td>
   </tr>

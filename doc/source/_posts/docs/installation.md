@@ -34,7 +34,8 @@ gulp.task('css', () => {
     .pipe(sass({
       importer: [
         magic()
-      ]
+      ],
+      functions: require('./src/tatami'),
     }))
     .pipe(gulp.dest('path/to/output'))
 })
