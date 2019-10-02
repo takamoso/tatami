@@ -1,12 +1,11 @@
 import stickySidebar from 'sticky-sidebar'
 
-const nav = new stickySidebar('.p.nav', {
+let nav = new stickySidebar('.p.nav', {
   containerSelector: '.l.wrapper > .container',
   innerWrapperSelector: '.inner',
   stickyClass: 'affixed',
   topSpacing: 20,
   bottomSpacing: 20,
-  minWidth: 991,
 })
 const toc = new stickySidebar('.p.toc', {
   containerSelector: '.l.wrapper > .container',
@@ -14,3 +13,15 @@ const toc = new stickySidebar('.p.toc', {
   stickyClass: 'affixed',
   minWidth: 1280,
 })
+
+const mediaQuery = matchMedia('(max-width: 61.9375em)')  // 991px
+const mediaQueryHandler = mq => {
+  if (mq.matches) {
+    nav.destroy()
+  } else {
+    nav.initialize()
+  }
+}
+
+mediaQueryHandler(mediaQuery)
+mediaQuery.addListener(mediaQueryHandler)
