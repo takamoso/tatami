@@ -11,5 +11,5 @@ export const test = async () => {
 }
 
 export const watch = () => {
-  gulp.watch(['./scss/**/*.scss', './test/**/*.scss'], test)
+  gulp.watch(['./src/**/*.scss', './test/**/*.scss'], test)
 }
