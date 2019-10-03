@@ -35,7 +35,7 @@ gulp.task('css', () => {
       importer: [
         magic()
       ],
-      functions: require('./src/tatami'),
+      functions: require('@takamoso/tatami/src/tatami'),
     }))
     .pipe(gulp.dest('path/to/output'))
 })
