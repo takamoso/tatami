@@ -5,8 +5,8 @@ const root = require('app-root-path')
 
 module.exports = {
   '_base64_encode($data, $extension: false)': (data, extension) => {
-    if (!data instanceof sass.types.String) {
-      return
+    if (!(data instanceof sass.types.String)) {
+      throw '$data: Expected a string.'
     }
 
     data = data.getValue()
