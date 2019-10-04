@@ -13,7 +13,6 @@ module.exports = {
   ...require('./utility/_cosh'),
   ...require('./utility/_exp'),
   ...require('./utility/_expm1'),
-  ...require('./utility/_fround'),
   ...require('./utility/_hypot'),
   ...require('./utility/_imul'),
   ...require('./utility/_log'),
