@@ -21,6 +21,7 @@ module.exports = {
   ...require('./utility/_log2'),
   ...require('./utility/_pow'),
   ...require('./utility/_sin'),
+  ...require('./utility/_sinh'),
   ...require('./utility/_sqrt'),
   ...require('./utility/_tan'),
   ...require('./utility/_tanh'),
