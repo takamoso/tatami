@@ -1,7 +1,7 @@
 const sass = require('node-sass')
 
 module.exports = {
-  '_expml($x)': x => {
+  '_expm1($x)': x => {
     if (!(x instanceof sass.types.Number)) {
       throw "$x: Expected a number."
     } else if (x.getUnit()) {
