@@ -1,0 +1,11 @@
+@function _property-override($base, $override) {
+  $merge: _map-merge($base, $override);
+  
+  @each $key, $value in $merge {
+    @if _is-list($value) and list-separator($value) == 'comma' {
+      $merge: _map-set($merge, $key, unquote(_str-join($value, ', ')));
+    }
+  }
+
+  @return $merge;
+}
