@@ -1,0 +1,13 @@
+@function _map-set($map, $keys...) {
+  $result: (nth($keys, -2): nth($keys, -1));
+
+  @if length($keys) == 2 {
+    @return map-merge($map, $result);
+  }
+
+  @for $i from length($keys) - 2 through 1 {
+    $result: map-merge((nth($keys, $i): ()), (nth($keys, $i): $result));
+  }
+
+  @return _map-merge($map, $result);
+}
