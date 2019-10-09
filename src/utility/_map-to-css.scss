@@ -1,0 +1,11 @@
+@mixin _map-to-css($map) {
+  @each $key, $value in $map {
+    @if _is-map($value) {
+      #{$key} {
+        @include _map-to-css($value);
+      }
+    } @else {
+      #{$key}: if(_is-str($value) and $key != 'content', unquote($value), $value);
+    }
+  }
+}
