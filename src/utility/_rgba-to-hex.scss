@@ -1,0 +1,7 @@
+@function _rgba-to-hex($rgba, $backgrond: #fff) {
+  @if str-slice(quote($backgrond), 1, 1) != '#' {
+    @error '$background argument must be a hex color.';
+  }
+
+  @return mix(rgb(red($rgba), green($rgba), blue($rgba)), $backgrond, alpha($rgba) * 100%);
+}
