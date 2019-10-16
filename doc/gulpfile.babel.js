@@ -49,6 +49,7 @@ export const style = () => {
       importer: [
         magic(),
       ],
+      functions: require('../src/tatami'),
     }))
     .pipe(ifelse(prod, postcss([
       autoprefixer({
