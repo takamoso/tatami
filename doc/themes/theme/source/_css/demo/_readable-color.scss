@@ -1,0 +1,56 @@
+.p.readable.color.preview {
+  $colors: (
+    #087f5b,
+    #099268,
+    #0ca678,
+    #12b886,
+    #20c997,
+    #38d9a9,
+    #63e6be,
+    #96f2d7,
+    #c3fae8,
+    #e6fcf5,
+  );
+
+  > .container {
+    width: 100%;
+    margin: 0 _rem(12px);
+    > .chip {
+      max-width: _rem(300px);
+      margin: auto;
+      padding: .4em 1.1em;
+      &[data-luminance] {
+        @each $color in $colors {
+          &[data-#{index($colors, $color)}] {
+            color: _readable-color('luminance', $color);
+            background-color: $color;
+          }
+        }
+      }
+      &[data-brightness] {
+        @each $color in $colors {
+          &[data-#{index($colors, $color)}] {
+            color: _readable-color('brightness', $color);
+            background-color: $color;
+          }
+        }
+        &[data-threshold] {
+          @each $color in $colors {
+            &[data-#{index($colors, $color)}] {
+              color: _readable-color('brightness', $color, $threshold: 150);
+              background-color: $color;
+            }
+          }
+        }
+      }
+      &[data-difference] {
+        @each $color in $colors {
+          &[data-#{index($colors, $color)}] {
+            color: _readable-color('difference', $color);
+            background-color: $color;
+          }
+        }
+      }
+    }
+  }
+}

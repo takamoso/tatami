@@ -1,0 +1,83 @@
+@function _readable-color(
+  $method,
+  $background-color,
+  $light-text-color: #fff,
+  $dark-text-color: #000,
+  $threshold: null,
+) {
+  @if $method == 'brightness' {
+    @return call(get-function('__readable-color-#{$method}'), $background-color, $light-text-color, $dark-text-color, $threshold);
+  } @else {
+    @return call(get-function('__readable-color-#{$method}'), $background-color, $light-text-color, $dark-text-color);
+  }
+}
+
+@function __readable-color-luminance(
+  $background-color,
+  $light-text-color,
+  $dark-text-color,
+) {
+  $l: __get-readable-color-luminance($background-color);
+  $ll: __get-readable-color-luminance($light-text-color);
+  $ld: __get-readable-color-luminance($dark-text-color);
+  $rl: ($ll + .05) / ($l + .05);
+  $rd: ($l + .05) / ($ld + .05);
+
+  @return if($rl < $rd, $dark-text-color, $light-text-color);
+}
+
+@function __get-readable-color-luminance(
+  $color,
+) {
+  $srgb: (
+    'r': red($color) / 255,
+    'g': green($color) / 255,
+    'b': blue($color) / 255,
+  );
+
+  @each $key, $value in $srgb {
+    $srgb: _map-set($srgb, $key, if($value <= .03928, $value / 12.92, _pow(($value + .055) / 1.055, 2.4)));
+  }
+
+  @return .2126 * _map-get($srgb, 'r') + .7152 * _map-get($srgb, 'g') + .0722 * _map-get($srgb, 'b');
+}
+
+@function __readable-color-brightness(
+  $background-color,
+  $light-text-color,
+  $dark-text-color,
+  $threshold,
+) {
+  $y: __get-readable-color-brightness($background-color);
+  $yl: __get-readable-color-brightness($light-text-color);
+  $yd: __get-readable-color-brightness($dark-text-color);
+  $t: if($threshold == null, round(($yl + $yd) / 2), $threshold);
+
+  @return if($y >= $t, $dark-text-color, $light-text-color);
+}
+
+@function __get-readable-color-brightness(
+  $color,
+) {
+  @return .299 * red($color) + .587 * green($color) + .114 * blue($color);
+}
+
+@function __readable-color-difference(
+  $background-color,
+  $light-text-color,
+  $dark-text-color,
+) {
+  $r1: red($background-color);
+  $g1: green($background-color);
+  $b1: blue($background-color);
+  $r2: red($light-text-color);
+  $g2: green($light-text-color);
+  $b2: blue($light-text-color);
+  $r3: red($dark-text-color);
+  $g3: green($dark-text-color);
+  $b3: blue($dark-text-color);
+  $dl: (max($r1, $r2) - min($r1, $r2)) + (max($g1, $g2) - min($g1, $g2)) + (max($b1, $b2) - min($b1, $b2));
+  $dd: (max($r1, $r3) - min($r1, $r3)) + (max($g1, $g3) - min($g1, $g3)) + (max($b1, $b3) - min($b1, $b3));
+
+  @return if($dl < $dd, $dark-text-color, $light-text-color);
+}
