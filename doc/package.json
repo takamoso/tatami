@@ -2,7 +2,7 @@
   "name": "@takamoso/tatami-doc",
   "private": true,
   "hexo": {
-    "version": "3.9.0"
+    "version": "4.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.7.1",
