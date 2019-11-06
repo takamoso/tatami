@@ -99,7 +99,7 @@ export const watch = async () => {
       baseDir: path.join(__dirname, 'public'),
     },
     https: true,
-    browser: 'google chrome',
+    browser: 'google chrome canary',
   })
 
   gulp.watch(['./source/**/*', './themes/theme/layout/**/*'], gulp.series(generate, gulp.parallel(style, script), reload))
