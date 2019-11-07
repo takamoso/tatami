@@ -3,7 +3,7 @@ title: _list-set
 layout: docs
 date: 2019-09-29 09:59:30
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, List型]
 ---
 
 配列に値を代入します。

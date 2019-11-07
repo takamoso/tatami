@@ -3,7 +3,7 @@ title: _cbrt
 layout: docs
 date: 2019-10-04 17:11:18
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, 数式]
 ---
 
 立方根を算出します。

@@ -3,7 +3,7 @@ title: _is-list
 layout: docs
 date: 2019-09-28 18:06:31
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, List型]
 ---
 
 List型かどうかを判定します。

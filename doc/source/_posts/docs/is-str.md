@@ -3,7 +3,7 @@ title: _is-str
 layout: docs
 date: 2019-09-28 18:12:45
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, String型]
 ---
 
 String型かどうかを判定します。

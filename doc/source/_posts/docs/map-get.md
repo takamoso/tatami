@@ -3,7 +3,7 @@ title: _map-get
 layout: docs
 date: 2019-09-29 10:08:17
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, Map型]
 ---
 
 ネストされた連想配列の値を取得します。

@@ -3,7 +3,7 @@ title: _list-replace
 layout: docs
 date: 2019-09-28 18:38:47
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, List型]
 ---
 
 配列の指定番目の値を置き換えます。

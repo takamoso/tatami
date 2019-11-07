@@ -3,7 +3,7 @@ title: _str-split
 layout: docs
 date: 2019-09-29 12:08:40
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, String型]
 ---
 
 文字列を指定した文字列で分割します。

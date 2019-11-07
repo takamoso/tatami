@@ -3,7 +3,7 @@ title: _list-slice
 layout: docs
 date: 2019-09-29 10:03:32
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, List型]
 ---
 
 配列から指定された範囲を抜き出した配列を生成します。

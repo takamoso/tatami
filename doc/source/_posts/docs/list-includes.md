@@ -3,7 +3,7 @@ title: _list-includes
 layout: docs
 date: 2019-09-28 18:22:16
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, List型]
 ---
 
 特定の値が配列に含まれているかどうかを判定します。

@@ -3,7 +3,7 @@ title: _list-prepend
 layout: docs
 date: 2019-09-28 18:27:47
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, List型]
 ---
 
 配列の先頭に値を追加します。

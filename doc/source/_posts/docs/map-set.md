@@ -3,7 +3,7 @@ title: _map-set
 layout: docs
 date: 2019-10-05 11:29:15
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, Map型]
 ---
 
 ネストされた連想配列に値を代入します。

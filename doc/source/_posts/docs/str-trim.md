@@ -3,7 +3,7 @@ title: _str-trim
 layout: docs
 date: 2019-09-29 12:11:37
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, String型]
 ---
 
 文字列の両端の空白を削除します。

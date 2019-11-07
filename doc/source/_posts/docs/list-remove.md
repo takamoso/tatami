@@ -3,7 +3,7 @@ title: _list-remove
 layout: docs
 date: 2019-09-28 18:33:53
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, List型]
 ---
 
 配列から指定した番目の要素を削除します。

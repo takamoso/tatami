@@ -3,7 +3,7 @@ title: _is-map
 layout: docs
 date: 2019-09-28 18:08:42
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, Map型]
 ---
 
 Map型かどうかを判定します。

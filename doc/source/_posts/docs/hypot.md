@@ -3,7 +3,7 @@ title: _hypot
 layout: docs
 date: 2019-10-04 17:24:54
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, 数式]
 ---
 
 二乗和の平方根を算出します。

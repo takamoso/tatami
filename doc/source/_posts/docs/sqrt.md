@@ -3,7 +3,7 @@ title: _sqrt
 layout: docs
 date: 2019-10-04 17:35:19
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, 数式]
 ---
 
 平方根を算出します。

@@ -3,7 +3,7 @@ title: _pow
 layout: docs
 date: 2019-10-04 17:32:25
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, 数式]
 ---
 
 累乗を算出します。

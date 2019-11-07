@@ -3,7 +3,7 @@ title: _list-get
 layout: docs
 date: 2019-09-28 18:14:20
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, List型]
 ---
 
 配列の値を取得します。

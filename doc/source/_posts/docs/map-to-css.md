@@ -3,7 +3,7 @@ title: _map-to-css
 layout: docs
 date: 2019-10-09 21:00:09
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, Map型]
 ---
 
 連想配列をCSSとして出力します。

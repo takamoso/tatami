@@ -3,7 +3,7 @@ title: _map-merge
 layout: docs
 date: 2019-09-29 10:14:46
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, Map型]
 ---
 
 2つ以上の連想配列をマージします。

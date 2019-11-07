@@ -3,7 +3,7 @@ title: _str-join
 layout: docs
 date: 2019-09-29 11:57:00
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, String型]
 ---
 
 配列の全ての要素を連結した文字列を生成します。

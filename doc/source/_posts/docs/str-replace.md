@@ -3,7 +3,7 @@ title: _str-replace
 layout: docs
 date: 2019-09-29 12:03:21
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, String型]
 ---
 
 パターンにマッチした文字列を置き換えます。

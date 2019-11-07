@@ -3,7 +3,7 @@ title: _str-includes
 layout: docs
 date: 2019-09-29 10:23:19
 categories:
-  - [ユーティリティ]
+  - [ユーティリティ, String型]
 ---
 
 文字列が特定の文字列を含むか判定します。

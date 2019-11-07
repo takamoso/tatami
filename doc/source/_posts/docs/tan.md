@@ -3,6 +3,7 @@ title: _tan
 layout: docs
 date: 2019-10-04 17:35:48
 categories:
+  - [ユーティリティ, 数式]
 ---
 
 タンジェント（正接）を算出します。
