@@ -1,6 +1,27 @@
-const button = document.querySelector('.l.header .button')
-const nav = document.querySelector('.p.nav')
+const button = document.querySelector('.s-menu')
+const item = document.querySelector('.l-sidebar')
 
 button.addEventListener('click', () => {
-  nav.style.height = nav.style.height === '' || parseInt(nav.style.height) === 0 ? `${nav.scrollHeight}px` : 0
+  if (item.classList.contains('_open')) {
+    const transition = item.style.transition
+    item.style.transition = ''
+
+    requestAnimationFrame(() => {
+      item.style.height = `${item.scrollHeight}px`
+      item.style.transition = transition
+
+      requestAnimationFrame(() => {
+        item.style.height = ''
+      })
+    })
+  } else {
+    item.style.height = `${item.scrollHeight}px`
+
+    item.addEventListener('transitionend', function end() {
+      item.removeEventListener('transitionend', end)
+      item.style.height = 'auto'
+    })
+  }
+
+  item.classList.toggle('_open')
 })

@@ -1,4 +1,11 @@
 .l.main {
   flex: 1;
   min-width: 0;
+  background-color: #fff;
+  @include _media-up-than(991px) {
+    padding: _rem(38px 52px);
+  }
+  @include _media-down(991px) {
+    margin-top: 1.4em;
+  }
 }

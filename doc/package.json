@@ -31,6 +31,9 @@
     "webpack": "^4.41.2",
     "webpack-stream": "^5.2.1"
   },
+  "dependencies": {
+    "classlist-polyfill": "^1.2.0"
+  },
   "scripts": {
     "start": "npx gulp build",
     "deploy": "cross-env NODE_ENV=\"production\" npx gulp build"

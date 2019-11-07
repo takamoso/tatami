@@ -1,0 +1,14 @@
+.p-logo {
+  margin-bottom: .9em;
+  a {
+    display: inline-block;
+    padding: .4em .2em;
+  }
+  svg {
+    display: block;
+    height: _rem(14px);
+  }
+  @include _media-down(991px) {
+    display: none;
+  }
+}

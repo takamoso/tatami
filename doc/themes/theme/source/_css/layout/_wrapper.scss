@@ -1,10 +1,21 @@
-.l.wrapper {
-  @include _fluid(margin-top, 320px 16px, 1280px 40px);
-  @include _fluid(margin-bottom, 320px _rem(12px), 1280px 4rem);
-  > .container {
-    display: block;
-    @include _media-up-than(991px) {
-      display: flex;
-    }
+.l-wrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  @include _media-up-than(991px) {
+    background: linear-gradient(90deg, #fafafa 50%, #fff 0);
+  }
+  //@include _fluid(margin-top, 320px 16px, 1280px 40px);
+  //@include _fluid(margin-bottom, 320px _rem(12px), 1280px 4rem);
+}
+.l-wrapper_inner {
+  width: 100%;
+  min-width: 0;
+  max-width: _rem(1280px);
+  @include _fluid(padding-left, 320px 15px, 1280px 40px);
+  @include _fluid(padding-right, 320px 15px, 1280px 40px);
+  @include _media-up-than(991px) {
+    display: flex;
+    flex: 0 1 _rem(1280px);
   }
 }
