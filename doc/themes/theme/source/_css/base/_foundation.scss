@@ -1,10 +1,9 @@
 html {
-  height: 100%;
+  @include _media-up-than(991px) {
+    height: 100%;
+  }
 }
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   color: rgba(0, 0, 0, .77);
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -15,4 +14,33 @@ body {
   @include _fluid(font-size, 320px 15px, 1024px 16px);
   font-family: 'Noto Sans JP', sans-serif;
   overscroll-behavior-y: none;
+  @include _media-up-than(991px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+@font-face {
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Regular.woff2) format('woff2'),
+       url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Regular.woff) format('woff'),
+       url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Regular.otf) format('opentype');
+}
+@font-face {
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Medium.woff2) format('woff2'),
+       url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Medium.woff) format('woff'),
+       url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Medium.otf) format('opentype');
+}
+@font-face {
+  font-family: Noto Sans JP;
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Bold.woff2) format('woff2'),
+       url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Bold.woff) format('woff'),
+       url(https://fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Bold.otf) format('opentype');
 }

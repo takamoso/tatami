@@ -1,8 +1,8 @@
 .l-wrapper {
-  display: flex;
-  flex: 1;
-  justify-content: center;
   @include _media-up-than(991px) {
+    display: flex;
+    flex: 1;
+    justify-content: center;
     background: linear-gradient(90deg, #fafafa 50%, #fff 0);
   }
   //@include _fluid(margin-top, 320px 16px, 1280px 40px);

@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex: 0 0 _rem(55px);
+  height: _rem(55px);
   @include _fluid(padding-left, 320px 15px, 1280px 40px);
   @include _fluid(padding-right, 320px 15px, 1280px 40px);
   border-bottom: 1px solid #e8e8e8;

@@ -1,13 +1,11 @@
 .l-sidebar {
-  position: relative;
   line-height: 1.3;
-  will-change: position;
   @include _media-down(991px) {
     height: 0;
-    overflow: hidden;
     @include _fluid(margin-left, 320px -15px, 1280px -40px);
     @include _fluid(margin-right, 320px -15px, 1280px -40px);
-    transition: height .15s ease-in-out;
+    overflow: hidden;
+    transition: height .35s;
   }
   @include _media-up-than(991px) {
     width: _rem(210px);
@@ -17,8 +15,6 @@
   top: auto !important;
   left: auto !important;
   padding: _rem(38px 24px 38px 0);
-  transform: translate3d(0, 0, 0);
-  will-change: position, transform;
   @include _media-down(991px) {
     @include _fluid(padding-left, 320px 15px, 1280px 40px);
     @include _fluid(padding-right, 320px 15px, 1280px 40px);
