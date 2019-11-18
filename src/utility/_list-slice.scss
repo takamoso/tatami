@@ -1,6 +1,10 @@
 @function _list-slice($list, $start: 1, $end: length($list)) {
   $length: length($list);
 
+  @if $length == 0 {
+    @return $list;
+  }
+
   @if $start < 0 {
     $start: if($length < -$start, 0, $length + $start + 1);
   }
