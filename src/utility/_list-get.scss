@@ -1,5 +1,6 @@
 @function _list-get($list, $indexes...) {
   @each $index in $indexes {
+    $index: if($index < 0, length($list) + $index + 1, $index);
     $list: nth($list, $index);
   }
 

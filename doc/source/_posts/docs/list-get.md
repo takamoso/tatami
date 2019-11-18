@@ -47,6 +47,9 @@ _list-get($list, $indexes...);
 @debug _list-get(a b c d, 3);
 // => c
 
+@debug _list-get(a b c d, -2);
+// => c
+
 @debug _list-get(a (b c) d, 2, 1);
 // => b
 </code></pre>
