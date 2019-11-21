@@ -1,6 +1,6 @@
 @function _data-url($data...) {
   $result: ();
-  $mime: (
+  $mimes: (
     gif: 'image/gif',
     png: 'image/png',
     jpg: 'image/jpeg',
@@ -16,10 +16,11 @@
   );
 
   @each $file in $data {
+    $file: if(_is-list($file), _str-join($file, ''), $file);
     $encode: _base64-encode($file, true);
     $base64: _list-get($encode, 1);
     $extension: _list-get($encode, 2);
-    $result: append($result, 'url(data:#{if($extension == '', 'image/svg+xml', _map-get($mime, $extension))};base64,#{$base64})');
+    $result: append($result, 'url(data:#{if($extension == '', 'image/svg+xml', _map-get($mimes, $extension))};base64,#{$base64})');
   }
   
   @return unquote(_str-join($result, ' '));
