@@ -1,12 +1,12 @@
 @function _em($values, $base: 16px) {
-  @if length($values) == 1 and unit($values) != px {
+  @if length($values) == 1 and unit($values) != 'px' {
     @return $values;
   }
 
   $result: ();
   
   @each $value in $values {
-    $result: append($result, if(_strip-unit($value) == 0, 0, _strip-unit($value) / _strip-unit($base) * 1em));
+    $result: append($result, if(_strip-unit($value) == 0, 0, if(unit($value) == 'px', _strip-unit($value) / _strip-unit($base) * 1em, $value)));
   }
 
   @return if(length($values) == 1, nth($result, 1), $result);
