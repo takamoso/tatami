@@ -1,7 +1,7 @@
 .l-wrapper {
   @include _media-up-than(991px) {
     display: flex;
-    flex: 1;
+    flex: 1 0 auto;
     justify-content: center;
     background: linear-gradient(90deg, #fafafa 50%, #fff 0);
   }
