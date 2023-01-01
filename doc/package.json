@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.7.1",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.3.0",
     "browser-sync": "^2.26.7",
     "cross-env": "^6.0.3",
     "cssnano": "^4.1.10",
@@ -28,8 +28,8 @@
     "prismjs": "^1.17.1",
     "sticky-sidebar": "^3.3.1",
     "terser-webpack-plugin": "^2.2.1",
-    "webpack": "^4.41.2",
-    "webpack-stream": "^5.2.1"
+    "webpack": "^5.75.0",
+    "webpack-stream": "^7.0.0"
   },
   "dependencies": {
     "classlist-polyfill": "^1.2.0"
